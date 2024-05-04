@@ -20,6 +20,6 @@ public interface CityService {
 
 	City update(int id, City city);
 
-	void delete(int id);
+	boolean delete(int id);
 
 }

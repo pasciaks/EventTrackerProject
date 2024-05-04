@@ -33,8 +33,9 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	public List<City> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return cityRepo.findAll();
+
 	}
 
 	@Override
@@ -50,8 +51,18 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public boolean delete(int id) {
+
+		boolean wasDeleted = false;
+
+		try {
+			cityRepo.deleteById(id);
+			wasDeleted = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return wasDeleted;
 
 	}
 
