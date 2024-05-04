@@ -66,22 +66,26 @@ A model (developed by Leonard Richardson) that breaks down the principal element
 ```
 
 ```Java
-	// Get one city by id
-	@GetMapping("cities/{id}")
-	public City show(int id, HttpServletResponse response) {
 
-		City foundCity = null;
+	// Create a city
+	@PostMapping("cities")
 
-		foundCity = cityService.findById(id);
+	public City create(@RequestBody City city, HttpServletRequest request, HttpServletResponse response) {
 
-		if (foundCity == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+		City createdCity = cityService.create(city);
+
+		if (createdCity == null) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
 		} else {
-			response.setStatus(HttpServletResponse.SC_OK); // 200
+			response.setStatus(HttpServletResponse.SC_CREATED); // 201
+			response.setHeader("Location", request.getRequestURL().append("/").append(createdCity.getId()).toString());
+
 		}
 
-		return foundCity;
+		return createdCity;
+
 	}
+
 ```
 
 ### API Endpoint tests/sample screenshots.
@@ -133,6 +137,14 @@ A model (developed by Leonard Richardson) that breaks down the principal element
 # Endpoint Sample: /api/cities/{cityId} - (UNSUCCESSFUL DELETE EXAMPLE)
 
 ![endpoint example](11.png)
+
+# JUnit and Gradle Tests Passing
+
+![JUnit example](j1.png)
+
+# JUnit and Gradle Tests Passing
+
+![Gradle example](j2.png)
 
 #### Deployment
 

@@ -99,8 +99,11 @@ public class CityController {
 
 	// Create a city
 	@PostMapping("cities")
+
 	public City create(@RequestBody City city, HttpServletRequest request, HttpServletResponse response) {
+
 		City createdCity = cityService.create(city);
+
 		if (createdCity == null) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
 		} else {
@@ -108,6 +111,7 @@ public class CityController {
 			response.setHeader("Location", request.getRequestURL().append("/").append(createdCity.getId()).toString());
 
 		}
+
 		return createdCity;
 
 	}
