@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,12 +29,43 @@ public class CityController {
 
 	// Always use plural URI names for end points
 
-	// Return a link to the README.md file to document the API
-	// Consider HTML view instead of plain text
+	/*
+	 * When returning documentation for a REST API endpoint at the route /api using
+	 * the HTTP GET method, the content you return should typically be in a format
+	 * that's easy for developers to consume and understand. Here are a few options:
+	 * 
+	 * OpenAPI (formerly Swagger) Specification: Return the OpenAPI specification
+	 * document in JSON or YAML format. This document provides a detailed
+	 * description of your API endpoints, including paths, parameters, request and
+	 * response schemas, authentication requirements, and more. Developers can use
+	 * this document to generate client SDKs, documentation, and even perform
+	 * automated testing. API Blueprint: Similar to OpenAPI, API Blueprint is
+	 * another format for describing APIs. You can return your API documentation in
+	 * API Blueprint format, which is a Markdown-based format. Tools like Apiary or
+	 * Aglio can parse API Blueprint documents and generate documentation. HTML
+	 * Documentation: Return HTML documentation that describes your API endpoints.
+	 * This documentation can include details such as endpoint paths, supported
+	 * methods, request and response schemas, example requests and responses,
+	 * authentication details, and usage guidelines. Markdown Documentation: Return
+	 * Markdown files that describe your API endpoints. Markdown is a lightweight
+	 * markup language that's easy to read and write. Developers can view Markdown
+	 * documentation in any text editor or render it into HTML for better
+	 * readability.
+	 */
 	@GetMapping("")
 	public String docs(HttpServletResponse response) {
 		response.setStatus(HttpServletResponse.SC_OK); // 200
-		return "https://github.com/pasciaks/EventTrackerProject#readme";
+		return "# API Routes / REST Endpoints\n" + "\n"
+				+ "| HTTP Verb | URI                          | Request Body                                   | Response Body                            | Purpose                                |\n"
+				+ "| --------- | ---------------------------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------- |\n"
+				+ "| GET       | `/api`                       |                                                | Description of the API and its endpoints | API **Index**                          |\n"
+				+ "| GET       | `/api/ping`                  |                                                | Text `pong`                              | **Test** endpoint                      |\n"
+				+ "| GET       | `/api/cities`                |                                                | List < City >                            | **Retrieve** **List** City endpoint    |\n"
+				+ "| POST      | `/api/cities`                | Representation of a new _city_ resource        | { City }                                 | **Create** City endpoint               |\n"
+				+ "| PUT       | `/api/cities/{id}`           | Representation of updates to a _city_ resource | { City }                                 | **Replace** / **Update** City endpoint |\n"
+				+ "| DELETE    | `/api/cities/{id}`           |                                                | No content                               | **Delete** City endpoint               |\n"
+				+ "| GET       | `/api/cities/states`         |                                                | List < String > states                   | State Names endpoint                   |\n"
+				+ "| GET       | `/api/cities/states/{state}` |                                                | List < City > cities                     | List of cities in state endpoint       |";
 	}
 
 	@GetMapping("ping")
@@ -48,19 +80,20 @@ public class CityController {
 		return cityService.findAll();
 	}
 
-	// Get one city
-	@GetMapping("cities/{id}")
-	public City show(int id, HttpServletResponse response) {
+	// Get one city by id
+	@GetMapping("cities/{cityId}")
+	public City show(@PathVariable("cityId") int cityId, HttpServletResponse response) {
 
 		City foundCity = null;
 
-		foundCity = cityService.findById(id);
+		foundCity = cityService.findById(cityId);
 
 		if (foundCity == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 		} else {
 			response.setStatus(HttpServletResponse.SC_OK); // 200
 		}
+
 		return foundCity;
 	}
 
@@ -72,7 +105,6 @@ public class CityController {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
 		} else {
 			response.setStatus(HttpServletResponse.SC_CREATED); // 201
-			// set location to include full URL of new city
 			response.setHeader("Location", request.getRequestURL().append("/").append(createdCity.getId()).toString());
 
 		}
@@ -81,28 +113,41 @@ public class CityController {
 	}
 
 	// Update a city
-	@PutMapping("cities/{id}")
-	public City update(@RequestBody City city, int id, HttpServletRequest request, HttpServletResponse response) {
-		City updatedCity = cityService.update(id, city);
+	@PutMapping("cities/{cityId}")
+	public City update(@PathVariable("cityId") int cityId, @RequestBody City city, HttpServletRequest request,
+			HttpServletResponse response) {
+		City updatedCity = cityService.update(cityId, city);
 		if (updatedCity == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		} else {
 			response.setStatus(HttpServletResponse.SC_OK);
-			// set location to include full URL of updated city
-			response.setHeader("Location", request.getRequestURL().append("/").append(updatedCity.getId()).toString());
+			response.setHeader("Location", request.getRequestURL().toString());
 		}
 		return updatedCity;
 	}
 
 	// Delete a city
-	@DeleteMapping("cities/{id}")
-	public void delete(int id, HttpServletResponse response) {
-		if (cityService.delete(id)) {
+	@DeleteMapping("cities/{cityId}")
+	public void delete(@PathVariable("cityId") int cityId, HttpServletResponse response) {
+		if (cityService.delete(cityId)) {
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT); // 204 is the status code for successful delete
 		} else {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404 is the status code for not found or delete
-																	// failed
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404 is the status for not found or delete failed
 		}
+	}
+
+	// Get all distinct states
+	@GetMapping("cities/states")
+	public List<String> findDistinctStateNames(HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findDistinctState();
+	}
+
+	// Get all cities in one state
+	@GetMapping("cities/states/{state}")
+	public List<City> findDistinctStateNames(@PathVariable("state") String state, HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findCityByState(state);
 	}
 
 }

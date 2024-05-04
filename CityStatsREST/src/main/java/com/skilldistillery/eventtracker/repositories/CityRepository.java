@@ -1,25 +1,27 @@
 package com.skilldistillery.eventtracker.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.skilldistillery.eventtracker.entities.City;
 
 public interface CityRepository extends JpaRepository<City, Integer> {
 
-	// City findCityById(int id);
+	List<City> findCityByPopulationGreaterThan(int population);
 
-	// List<City> findCityByState(String state);
+	List<City> findCityByPopulationLessThan(int population);
 
-	// List<City> findCityByPopulationGreaterThan(int population);
+	List<City> findCityByPopulationBetween(int low, int high);
 
-	// List<City> findCityByPopulationLessThan(int population);
+	List<City> findCityByTimezoneLike(String timezone);
 
-	// List<City> findCityByPopulationBetween(int low, int high);
+	List<City> findCityByZipsContaining(String zip);
 
-	// List<City> findCityByTimezoneLike(String timezone);
+	@Query("SELECT DISTINCT c.state FROM City c")
+	List<String> findDistinctState();
 
-	// List<City> findCityByZipsContaining(String zip);
-
-	// List<String> findAllDistinctStates();
+	List<City> findCityByState(String state);
 
 }

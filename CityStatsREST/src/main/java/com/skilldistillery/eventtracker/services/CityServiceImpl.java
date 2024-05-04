@@ -18,11 +18,11 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public City findById(int id) {
+	public City findById(int cityId) {
 
 		City foundCity = null;
 
-		Optional<City> cityOpt = cityRepo.findById(id);
+		Optional<City> cityOpt = cityRepo.findById(cityId);
 
 		if (cityOpt.isPresent()) {
 			foundCity = cityOpt.get();
@@ -40,30 +40,89 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	public City create(City city) {
-		// TODO Auto-generated method stub
-		return null;
+
+		City createdCity = null;
+
+		try {
+			createdCity = cityRepo.saveAndFlush(city);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return createdCity;
 	}
 
 	@Override
-	public City update(int id, City city) {
-		// TODO Auto-generated method stub
-		return null;
+	public City update(int cityId, City city) {
+
+		City updatedCity = null;
+
+		Optional<City> cityOpt = cityRepo.findById(cityId);
+
+		if (cityOpt.isPresent()) {
+			City managedCity = cityOpt.get();
+
+			managedCity.setCity(city.getCity());
+			managedCity.setState(city.getState());
+			managedCity.setCounty(city.getCounty());
+			managedCity.setLat(city.getLat());
+			managedCity.setLng(city.getLng());
+			managedCity.setPopulation(city.getPopulation());
+			managedCity.setDensity(city.getDensity());
+			managedCity.setTimezone(city.getTimezone());
+			managedCity.setRanking(city.getRanking());
+			managedCity.setZips(city.getZips());
+
+			updatedCity = cityRepo.saveAndFlush(managedCity);
+		}
+
+		return updatedCity;
 	}
 
 	@Override
-	public boolean delete(int id) {
+	public boolean delete(int cityId) {
 
 		boolean wasDeleted = false;
 
+		Optional<City> cityOpt = cityRepo.findById(cityId);
+
+		if (!cityOpt.isPresent()) {
+			wasDeleted = false;
+			return wasDeleted;
+		}
+
 		try {
-			cityRepo.deleteById(id);
+			cityRepo.deleteById(cityId);
 			wasDeleted = true;
 		} catch (Exception e) {
+			wasDeleted = false;
 			e.printStackTrace();
 		}
 
 		return wasDeleted;
 
+	}
+
+	@Override
+	public List<String> findDistinctState() {
+
+		List<City> citiesInNewYork = cityRepo.findCityByState("New York");
+		for (City city : citiesInNewYork) {
+			System.out.println(city.getCity());
+		}
+
+		List<String> states = null;
+		states = cityRepo.findDistinctState();
+		return states;
+	}
+
+	@Override
+	public List<City> findCityByState(String state) {
+		List<City> citiesByState = cityRepo.findCityByState(state);
+		for (City city : citiesByState) {
+			System.out.println(city.getCity());
+		}
+		return citiesByState;
 	}
 
 }

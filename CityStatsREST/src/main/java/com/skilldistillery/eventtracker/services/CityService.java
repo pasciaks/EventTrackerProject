@@ -6,20 +6,18 @@ import com.skilldistillery.eventtracker.entities.City;
 
 public interface CityService {
 
-	// findById
-	// findAll
-	// create
-	// update
-	// delete
-
-	City findById(int id);
+	City findById(int cityId);
 
 	List<City> findAll();
 
 	City create(City city);
 
-	City update(int id, City city);
+	City update(int cityId, City city);
 
-	boolean delete(int id);
+	boolean delete(int cityId);
+
+	List<String> findDistinctState();
+
+	List<City> findCityByState(String state);
 
 }

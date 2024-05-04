@@ -1,4 +1,6 @@
-# EventTrackerProject
+# EventTrackerProject - Sheldon Pasciak, Skill Distillery, May the 4th be with you, 2024!
+
+![Dataset Credits](0.png)
 
 ### Overview
 
@@ -44,15 +46,16 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 
 # API Routes / REST Endpoints
 
-| HTTP Verb | URI             | Request Body                                       | Response Body                                   | Purpose                              |
-| --------- | --------------- | -------------------------------------------------- | ----------------------------------------------- | ------------------------------------ |
-| GET       | `/api/ping`     |                                                    | Text `pong`                                     | **Test** endpoint                    |
-| GET       | `/api/cities`   |                                                    | List containing Representation of _city_ entity | **Retrieve** **List** City endpoint  |
-| POST      | `/api/cities`   | Representation of a new _city_ resource            | Representation of _city_ entity                 | **Create** City endpoint             |
-| PUT       | `/api/cities/1` | Representation of updates of a _city_ resource `1` | Representation of _city_ entity                 | **Replace** City endpoint            |
-| PATCH     | `/api/cities/1` | Representation of updates of a _city_ resource `1` | Representation of _city_ entity                 | **Update** City endpoint             |
-| DELETE    | `/api/cities/1` |                                                    | No content                                      | **Delete** City endpoint             |
-| GET       | `/api`          |                                                    | Description of the API and its endpoints        | API **Index** Documentation endpoint |
+| HTTP Verb | URI                          | Request Body                                   | Response Body                            | Purpose                                |
+| --------- | ---------------------------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------- |
+| GET       | `/api`                       |                                                | Description of the API and its endpoints | API **Index**                          |
+| GET       | `/api/ping`                  |                                                | Text `pong`                              | **Test** endpoint                      |
+| GET       | `/api/cities`                |                                                | List < City >                            | **Retrieve** **List** City endpoint    |
+| POST      | `/api/cities`                | Representation of a new _city_ resource        | { City }                                 | **Create** City endpoint               |
+| PUT       | `/api/cities/{id}`           | Representation of updates to a _city_ resource | { City }                                 | **Replace** / **Update** City endpoint |
+| DELETE    | `/api/cities/{id}`           |                                                | No content                               | **Delete** City endpoint               |
+| GET       | `/api/cities/states`         |                                                | List < String > states                   | State Names endpoint                   |
+| GET       | `/api/cities/states/{state}` |                                                | List < City > cities                     | List of cities in state endpoint       |
 
 # API Maturity
 
@@ -80,6 +83,56 @@ A model (developed by Leonard Richardson) that breaks down the principal element
 		return foundCity;
 	}
 ```
+
+### API Endpoint tests/sample screenshots.
+
+# Endpoint Sample: POSTMAN COLLECTION
+
+![endpoint example](2.png)
+
+# Endpoint Sample: /api/ping - TEST
+
+![endpoint example](3.png)
+
+# Endpoint Sample: /api - DOCUMENTATION
+
+![endpoint example](4.png)
+
+# Endpoint Sample: /api/cities - GET ALL CITIES
+
+![endpoint example](5.png)
+
+# Endpoint Sample: /api/cities/states - GET DISTINCT LIST OF STATES
+
+![endpoint example](6.png)
+
+# Endpoint Sample: /api/cities/states/New Hampshire - GET CITIES in a SPECIFIC STATE
+
+![endpoint example](6b.png)
+
+# Endpoint Sample: /api/cities/{cityId} - GET ONE CITY
+
+![endpoint example](7.png)
+
+# Endpoint Sample: /api/cities - CREATE CITY
+
+![endpoint example](8.png)
+
+# Endpoint Sample: /api/cities - CREATE CITY - MATURELY UPDATES 201 HEADER - HATEOAS
+
+![endpoint example](8b.png)
+
+# Endpoint Sample: /api/cities - UPDATE CITY
+
+![endpoint example](9.png)
+
+# Endpoint Sample: /api/cities/{cityId} - (SUCCESSFUL DELETE EXAMPLE)
+
+![endpoint example](10.png)
+
+# Endpoint Sample: /api/cities/{cityId} - (UNSUCCESSFUL DELETE EXAMPLE)
+
+![endpoint example](11.png)
 
 #### Deployment
 
