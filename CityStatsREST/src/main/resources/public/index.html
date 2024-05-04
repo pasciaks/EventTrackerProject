@@ -101,7 +101,7 @@
 			}
 		
 		let loadCities = function(stateName) {
-		      	let url=`/api/cities`;
+		      	let url=`api/cities`;
 	            fetch(url)
 	            .then(response => response.json())
 	            .then(data => {
@@ -115,7 +115,7 @@
 		
 		let loadCitiesForState = function(stateName) {
 	       
-	        	let url=`/api/cities/states/${stateName}`;
+	        	let url=`api/cities/states/${stateName}`;
 	            fetch(url)
 	            .then(response => response.json())
 	            .then(data => {
@@ -137,7 +137,7 @@
 		};
 			
 	    let loadStates = function () {
-		      	let url=`/api/cities/states`;
+		      	let url=`api/cities/states`;
 	            fetch(url)
 				.then(response => response.json())
 				.then(data => {
