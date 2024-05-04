@@ -150,6 +150,12 @@ A model (developed by Leonard Richardson) that breaks down the principal element
 
 - Private Reference: https://github.com/SkillDistillery/SD43/blob/main/rest/EventTracker/bootDeployment.md
 
+![Deployed](live1.png)
+
+![Deployed](live2.png)
+
+![Deployed](live0.png)
+
 <hr>
 
 [About The Developer (Sheldon Pasciak)](https://www.linkedin.com/in/sheldonpasciak/)

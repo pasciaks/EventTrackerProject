@@ -19,7 +19,7 @@ public interface CityRepository extends JpaRepository<City, Integer> {
 
 	List<City> findCityByZipsContaining(String zip);
 
-	@Query("SELECT DISTINCT c.state FROM City c")
+	@Query("SELECT DISTINCT c.state FROM City c order by c.state asc")
 	List<String> findDistinctState();
 
 	List<City> findCityByState(String state);
