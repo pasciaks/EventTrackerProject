@@ -44,7 +44,7 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 - Practice of complete REST API Development.
 - Deploying Spring Boot application and Database to Tomcat10/Apache server hosted on AWS.
 
-# API Routes / REST Endpoints
+# API Routes / REST Endpoints - http://3.15.197.159:8080/CityStatsREST/api - (NOTE: this IP is not static and will change, site will also be offline in near future)
 
 | HTTP Verb | URI                          | Request Body                                   | Response Body                            | Purpose                                |
 | --------- | ---------------------------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------- |
