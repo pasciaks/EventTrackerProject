@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.eventtracker.entities.City;
+import com.skilldistillery.eventtracker.entities.CityLocation;
 import com.skilldistillery.eventtracker.repositories.CityRepository;
 
 @Service
@@ -119,8 +120,8 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public List<City> findAllCityLatLng(String search) {
-		List<City> cities = cityRepo.findAllCityLatLng(search);
+	public List<CityLocation> findAllCityLocationLatLng(String search) {
+		List<CityLocation> cities = cityRepo.findAllCityLocationLatLng(search);
 		return cities;
 	}
 

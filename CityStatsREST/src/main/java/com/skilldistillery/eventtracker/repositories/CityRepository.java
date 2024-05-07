@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.skilldistillery.eventtracker.entities.City;
+import com.skilldistillery.eventtracker.entities.CityLocation;
 
 public interface CityRepository extends JpaRepository<City, Integer> {
 
@@ -25,7 +26,7 @@ public interface CityRepository extends JpaRepository<City, Integer> {
 
 	List<City> findCityByStateOrderByCityAsc(String state);
 
-	@Query("SELECT c FROM City c WHERE c.city LIKE %:search% ORDER BY c.city ASC")
-	List<City> findAllCityLatLng(@Param("search") String search);
+	@Query("SELECT cl FROM CityLocation cl WHERE cl.city LIKE %:search% ORDER BY cl.city ASC")
+	List<CityLocation> findAllCityLocationLatLng(@Param("search") String search);
 
 }

@@ -6,6 +6,7 @@
 	<persistence-unit name="CityStatsJPA">
 
 		<class>com.skilldistillery.eventtracker.entities.City</class>
+		<class>com.skilldistillery.eventtracker.entities.CityLocation</class>
 
 
 		<properties>

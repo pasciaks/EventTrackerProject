@@ -2,6 +2,8 @@ package com.skilldistillery.eventtracker.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.eventtracker.entities.City;
+import com.skilldistillery.eventtracker.entities.CityLocation;
+import com.skilldistillery.eventtracker.services.CityPageableService;
 import com.skilldistillery.eventtracker.services.CityService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +27,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CityController {
 
 	private CityService cityService;
+
+	@Autowired
+	private CityPageableService cityPageableService;
 
 	public CityController(CityService cityService) {
 		this.cityService = cityService;
@@ -56,17 +63,8 @@ public class CityController {
 	@GetMapping("")
 	public String docs(HttpServletResponse response) {
 		response.setStatus(HttpServletResponse.SC_OK); // 200
-		return "# API Routes / REST Endpoints\n" + "\n"
-				+ "| HTTP Verb | URI                          | Request Body                                   | Response Body                            | Purpose                                |\n"
-				+ "| --------- | ---------------------------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------- |\n"
-				+ "| GET       | `/api`                       |                                                | Description of the API and its endpoints | API **Index**                          |\n"
-				+ "| GET       | `/api/ping`                  |                                                | Text `pong`                              | **Test** endpoint                      |\n"
-				+ "| GET       | `/api/cities`                |                                                | List < City >                            | **Retrieve** **List** City endpoint    |\n"
-				+ "| POST      | `/api/cities`                | Representation of a new _city_ resource        | { City }                                 | **Create** City endpoint               |\n"
-				+ "| PUT       | `/api/cities/{id}`           | Representation of updates to a _city_ resource | { City }                                 | **Replace** / **Update** City endpoint |\n"
-				+ "| DELETE    | `/api/cities/{id}`           |                                                | No content                               | **Delete** City endpoint               |\n"
-				+ "| GET       | `/api/cities/states`         |                                                | List < String > states                   | State Names endpoint                   |\n"
-				+ "| GET       | `/api/cities/states/{state}` |                                                | List < City > cities                     | List of cities in state endpoint       |";
+		response.setContentType("text/html");
+		return "https://github.com/pasciaks/EventTrackerProject#readme";
 	}
 
 	@GetMapping("ping")
@@ -158,14 +156,21 @@ public class CityController {
 	// Get all cities with lat and lng coordinates and city name only
 	// get string from query parameter
 	@GetMapping("cities/coordinates")
-	public List<City> findAllCityLatLngCoordinates(
+	public List<CityLocation> findAllCityLatLngCoordinates(
 			@RequestParam(value = "city", required = false) String searchByCityName, HttpServletResponse response) {
 		response.setStatus(HttpServletResponse.SC_OK); // 200
 		if (searchByCityName == null) {
 			searchByCityName = "";
 		}
-		List<City> cityLocations = cityService.findAllCityLatLng(searchByCityName);
+		List<CityLocation> cityLocations = cityService.findAllCityLocationLatLng(searchByCityName);
 		return cityLocations;
+	}
+
+	@GetMapping("/citypages")
+	public Page<City> getEntities(
+			@RequestParam(value = "pageNumber", required = false, defaultValue = "0") int pageNumber,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+		return cityPageableService.findAll(pageNumber, pageSize);
 	}
 
 }

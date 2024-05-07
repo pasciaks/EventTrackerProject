@@ -44,18 +44,27 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 - Practice of complete REST API Development.
 - Deploying Spring Boot application and Database to Tomcat10/Apache server hosted on AWS.
 
-# API Routes / REST Endpoints - http://3.15.197.159:8080/CityStatsREST/api - (NOTE: this IP is not static and will change, site will also be offline in near future)
+# API Routes / REST Endpoints
 
-| HTTP Verb | URI                          | Request Body                                   | Response Body                            | Purpose                                |
-| --------- | ---------------------------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------- |
-| GET       | `/api`                       |                                                | Description of the API and its endpoints | API **Index**                          |
-| GET       | `/api/ping`                  |                                                | Text `pong`                              | **Test** endpoint                      |
-| GET       | `/api/cities`                |                                                | List < City >                            | **Retrieve** **List** City endpoint    |
-| POST      | `/api/cities`                | Representation of a new _city_ resource        | { City }                                 | **Create** City endpoint               |
-| PUT       | `/api/cities/{id}`           | Representation of updates to a _city_ resource | { City }                                 | **Replace** / **Update** City endpoint |
-| DELETE    | `/api/cities/{id}`           |                                                | No content                               | **Delete** City endpoint               |
-| GET       | `/api/cities/states`         |                                                | List < String > states                   | State Names endpoint                   |
-| GET       | `/api/cities/states/{state}` |                                                | List < City > cities                     | List of cities in state endpoint       |
+- http://3.15.197.159:8080/CityStatsREST/api - (NOTE: this IP is not static and will change, site will also be offline in near future)
+
+| HTTP Verb | URI                                       | Request Body                                   | Response Body                            | Purpose                                |
+| --------- | ----------------------------------------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------- |
+| GET       | `/api`                                    |                                                | Description of the API and its endpoints | API **Index**                          |
+| GET       | `/api/ping`                               |                                                | Text `pong`                              | **Test** endpoint                      |
+| GET       | `/api/cities`                             |                                                | List < City >                            | **Retrieve** **List** City endpoint    |
+| POST      | `/api/cities`                             | Representation of a new _city_ resource        | { City }                                 | **Create** City endpoint               |
+| PUT       | `/api/cities/{id}`                        | Representation of updates to a _city_ resource | { City }                                 | **Replace** / **Update** City endpoint |
+| DELETE    | `/api/cities/{id}`                        |                                                | No content                               | **Delete** City endpoint               |
+| GET       | `/api/cities/states`                      |                                                | List < String > states                   | State Names endpoint                   |
+| GET       | `/api/cities/states/{state}`              |                                                | List < City > cities                     | List of cities in state endpoint       |
+| GET       | `/api/citypages`?pageSize=10&pageNumber=0 |                                                | List < City > (Pageable)                 | **Retrieve** **List** City endpoint    |
+
+# Pageable
+
+- Note: In preparation for the coming Javascript implementation, with particular concerns for my 31k of rows, I've implemented Pageable to help limit the query size returns in order to efficiently handle the request traffic as well as provide user convenience for large data sets. The front end shall include ability to page through data and efficiently retrieve city rows without the need to return the 5 MB + size of all row data.
+
+![Pageable Endpoint](pageable.png)
 
 # API Maturity
 
