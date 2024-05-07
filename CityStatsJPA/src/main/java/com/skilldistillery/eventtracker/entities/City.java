@@ -167,7 +167,7 @@ public class City {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(city, id);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public class City {
 		if (getClass() != obj.getClass())
 			return false;
 		City other = (City) obj;
-		return Objects.equals(city, other.city) && id == other.id;
+		return id == other.id;
 	}
 
 	@Override

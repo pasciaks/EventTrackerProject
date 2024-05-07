@@ -18,6 +18,8 @@ public interface CityService {
 
 	List<String> findDistinctState();
 
-	List<City> findCityByState(String state);
+	List<City> findCityByStateOrderByCityAsc(String state);
+
+	List<City> findAllCityLatLng(String search);
 
 }

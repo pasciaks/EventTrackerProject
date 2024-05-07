@@ -106,23 +106,22 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public List<String> findDistinctState() {
 
-		List<City> citiesInNewYork = cityRepo.findCityByState("New York");
-		for (City city : citiesInNewYork) {
-			System.out.println(city.getCity());
-		}
-
+		List<City> citiesInNewYork = cityRepo.findCityByStateOrderByCityAsc("New York");
 		List<String> states = null;
 		states = cityRepo.findDistinctState();
 		return states;
 	}
 
 	@Override
-	public List<City> findCityByState(String state) {
-		List<City> citiesByState = cityRepo.findCityByState(state);
-		for (City city : citiesByState) {
-			System.out.println(city.getCity());
-		}
+	public List<City> findCityByStateOrderByCityAsc(String state) {
+		List<City> citiesByState = cityRepo.findCityByStateOrderByCityAsc(state);
 		return citiesByState;
+	}
+
+	@Override
+	public List<City> findAllCityLatLng(String search) {
+		List<City> cities = cityRepo.findAllCityLatLng(search);
+		return cities;
 	}
 
 }

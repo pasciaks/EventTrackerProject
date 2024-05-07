@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.eventtracker.entities.City;
@@ -151,7 +152,20 @@ public class CityController {
 	@GetMapping("cities/states/{state}")
 	public List<City> findDistinctStateNames(@PathVariable("state") String state, HttpServletResponse response) {
 		response.setStatus(HttpServletResponse.SC_OK); // 200
-		return cityService.findCityByState(state);
+		return cityService.findCityByStateOrderByCityAsc(state);
+	}
+
+	// Get all cities with lat and lng coordinates and city name only
+	// get string from query parameter
+	@GetMapping("cities/coordinates")
+	public List<City> findAllCityLatLngCoordinates(
+			@RequestParam(value = "city", required = false) String searchByCityName, HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		if (searchByCityName == null) {
+			searchByCityName = "";
+		}
+		List<City> cityLocations = cityService.findAllCityLatLng(searchByCityName);
+		return cityLocations;
 	}
 
 }

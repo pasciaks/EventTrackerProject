@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.skilldistillery.eventtracker.entities.City;
 
@@ -22,6 +23,9 @@ public interface CityRepository extends JpaRepository<City, Integer> {
 	@Query("SELECT DISTINCT c.state FROM City c order by c.state asc")
 	List<String> findDistinctState();
 
-	List<City> findCityByState(String state);
+	List<City> findCityByStateOrderByCityAsc(String state);
+
+	@Query("SELECT c FROM City c WHERE c.city LIKE %:search% ORDER BY c.city ASC")
+	List<City> findAllCityLatLng(@Param("search") String search);
 
 }
