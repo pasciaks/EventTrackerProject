@@ -43,6 +43,9 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 
 - Practice of complete REST API Development.
 - Deploying Spring Boot application and Database to Tomcat10/Apache server hosted on AWS.
+- using very complex queries with @Query annotations
+- implemented Paging and Sorting as well as very complex queries that were not necessarily required by this assignment.
+  - localhost:8083/api/cities/distances?lat=41.8375&lng=-87.6866&howFar=5
 
 # API Routes / REST Endpoints
 
