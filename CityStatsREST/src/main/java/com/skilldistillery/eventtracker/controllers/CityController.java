@@ -173,4 +173,35 @@ public class CityController {
 		return cityPageableService.findAll(pageNumber, pageSize);
 	}
 
+	// findAvgPopulationByState
+	@GetMapping("cities/avgpop")
+	public List<Object[]> findAvgPopulationByState(HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findAvgPopulationByState();
+	}
+
+	// sumPopulationByState
+	@GetMapping("cities/sumpop")
+	public List<Object[]> findSumPopulationByState(HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findSumPopulationByState();
+	}
+
+	// count of cities in each state
+	@GetMapping("cities/countof")
+	public List<Object[]> findCityCountByState(HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findCityCountByState();
+	}
+
+	// city distance
+	@GetMapping("cities/distances")
+	public List<Object[]> findCityDistances(@RequestParam(value = "lat", required = true) double givenLat,
+			@RequestParam(value = "lng", required = true) double givenLng,
+			@RequestParam(value = "howFar", defaultValue = "100.0", required = false) double howFar,
+			HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findCityDistances(givenLat, givenLng, howFar);
+	}
+
 }

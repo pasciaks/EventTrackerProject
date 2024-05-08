@@ -29,4 +29,20 @@ public interface CityRepository extends JpaRepository<City, Integer> {
 	@Query("SELECT cl FROM CityLocation cl WHERE cl.city LIKE %:search% ORDER BY cl.city ASC")
 	List<CityLocation> findAllCityLocationLatLng(@Param("search") String search);
 
+	// select average population from city group by state
+	@Query("SELECT c.state, avg(c.population) FROM City c GROUP BY c.state")
+	List<Object[]> findAvgPopulationByState();
+
+	// select sum of population from city group by state
+	@Query("SELECT c.state, sum(c.population) FROM City c GROUP BY c.state")
+	List<Object[]> findSumPopulationByState();
+
+	// count of cities in each state
+	@Query("SELECT c.state, count(c) FROM City c GROUP BY c.state")
+	List<Object[]> findCityCountByState();
+
+	@Query(value = "SELECT c.id, c.city, c.state_name, ( 3959 * acos( cos( radians(:givenLat) ) * cos( radians( c.lat ) ) * cos( radians( c.lng ) - radians(:givenLng) ) + sin( radians(:givenLat) ) * sin( radians( c.lat ) ) ) ) AS distance FROM City c HAVING distance <= :howFar ORDER BY distance", nativeQuery = true)
+	List<Object[]> findCityDistances(@Param("givenLat") double givenLat, @Param("givenLng") double givenLng,
+			@Param("howFar") double howFar);
+
 }

@@ -125,4 +125,28 @@ public class CityServiceImpl implements CityService {
 		return cities;
 	}
 
+	@Override
+	public List<Object[]> findAvgPopulationByState() {
+		List<Object[]> avgPopByState = cityRepo.findAvgPopulationByState();
+		return avgPopByState;
+	}
+
+	@Override
+	public List<Object[]> findSumPopulationByState() {
+		List<Object[]> sumPopByState = cityRepo.findSumPopulationByState();
+		return sumPopByState;
+	}
+
+	@Override
+	public List<Object[]> findCityCountByState() {
+		List<Object[]> cityCountByState = cityRepo.findCityCountByState();
+		return cityCountByState;
+	}
+
+	@Override
+	public List<Object[]> findCityDistances(double givenLat, double givenLng, double howFar) {
+		List<Object[]> cityDistances = cityRepo.findCityDistances(givenLat, givenLng, howFar);
+		return cityDistances;
+	}
+
 }

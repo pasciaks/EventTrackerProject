@@ -23,4 +23,16 @@ public interface CityService {
 
 	List<CityLocation> findAllCityLocationLatLng(String search);
 
+	// select average population from city group by state
+	List<Object[]> findAvgPopulationByState();
+
+	// select sum of population from city group by state
+	List<Object[]> findSumPopulationByState();
+
+	// count of cities in each state
+	List<Object[]> findCityCountByState();
+
+	// city distance
+	List<Object[]> findCityDistances(double givenLat, double givenLng, double howFar);
+
 }
