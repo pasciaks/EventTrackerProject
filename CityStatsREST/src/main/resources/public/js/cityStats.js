@@ -318,27 +318,18 @@
     },
   };
 
-  function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.href);
-    if (results == null) return "";
-    else return decodeURIComponent(results[1].replace(/\+/g, " "));
-  }
-
   let myCanvas = document.getElementById("myCanvas");
 
   myCanvas.addEventListener("mousemove", function (event) {
-    console.log(event.offsetX, event.offsetY);
+    //console.log(event.offsetX, event.offsetY);
 
     // todo: translate these x,y to lat,lng
 
     let guessLat = 90 - event.offsetY / (myCanvas.height / 180);
     let guessLng = event.offsetX / (myCanvas.width / 360) - 180;
 
-    console.log("Guess Lat: " + guessLat);
-    console.log("Guess Lng: " + guessLng);
+    //console.log("Guess Lat: " + guessLat);
+    //console.log("Guess Lng: " + guessLng);
   });
 
   let ctx = myCanvas.getContext("2d");
@@ -423,7 +414,7 @@
       let latv = Number(temp["lat"]);
       let longv = Number(temp["long"]);
 
-      console.log(latv, longv);
+      // console.log(latv, longv);
 
       drawPoints(latv, longv, "gold", 2);
     }
@@ -448,7 +439,8 @@
         data.forEach((city) => {
           const ahref = document.createElement("a");
           //ahref.href = `api/cities/${city.id}`;
-          ahref.href = `add-edit.html?cityId=${city.id}`;
+          //ahref.href = `add-edit.html?cityId=${city.id}`;
+          ahref.href = `detail.html?cityId=${city.id}`;
 
           ahref.textContent = "[" + city.city + "]";
           cityList.appendChild(ahref);
@@ -473,9 +465,11 @@
           cardBody.textContent = state;
 
           cardBody.addEventListener("click", () => {
-            loadCitiesForState(state);
-
+            document.getElementById("selectedState").textContent = state;
+            document.getElementById("cityList").textContent = "loading...";
+            loadCitiesWithCoordinates();
             setTimeout(() => {
+              loadCitiesForState(state);
               drawCapitals();
             }, 1500);
           });
