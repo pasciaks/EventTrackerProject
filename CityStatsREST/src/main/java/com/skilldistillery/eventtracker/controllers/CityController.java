@@ -195,6 +195,15 @@ public class CityController {
 	}
 
 	// city distance
+	@GetMapping("cities/distance")
+	public Double findCityDistance(@RequestParam(value = "cityId", required = true) int cityId,
+			@RequestParam(value = "lat", required = true) double givenLat,
+			@RequestParam(value = "lng", required = true) double givenLng, HttpServletResponse response) {
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findCityDistance(cityId, givenLat, givenLng);
+	}
+
+	// city distances
 	@GetMapping("cities/distances")
 	public List<Object[]> findCityDistances(@RequestParam(value = "lat", required = true) double givenLat,
 			@RequestParam(value = "lng", required = true) double givenLng,

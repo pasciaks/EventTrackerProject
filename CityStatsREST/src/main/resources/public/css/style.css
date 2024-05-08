@@ -1,0 +1,12 @@
+.state {
+	cursor: pointer;
+	width: 100px;
+	height: 50px;
+	font-size: 10px;
+	margin: 5px;
+	padding: 0px;
+}
+
+.state:hover {
+	box-shadow: 5px 5px 5px gray;
+}

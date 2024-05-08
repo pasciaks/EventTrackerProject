@@ -32,7 +32,11 @@ public interface CityService {
 	// count of cities in each state
 	List<Object[]> findCityCountByState();
 
-	// city distance
+	// city distances
 	List<Object[]> findCityDistances(double givenLat, double givenLng, double howFar);
+
+	// find distance from one city lat/lng to a given lat/lng returning single
+	// double value
+	Double findCityDistance(int cityId, double givenLat, double givenLng);
 
 }

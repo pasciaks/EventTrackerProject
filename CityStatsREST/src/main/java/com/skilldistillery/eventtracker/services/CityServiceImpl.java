@@ -149,4 +149,10 @@ public class CityServiceImpl implements CityService {
 		return cityDistances;
 	}
 
+	@Override
+	public Double findCityDistance(int cityId, double givenLat, double givenLng) {
+		Double cityDistance = cityRepo.findCityDistance(cityId, givenLat, givenLng);
+		return cityDistance;
+	}
+
 }
