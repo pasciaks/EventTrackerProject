@@ -18,11 +18,11 @@ ctx.fillStyle = "white";
 ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
 
 const drawPoints = (lat, lng, color, size = 2, objRatio) => {
-  console.log(objRatio);
+  //console.log(objRatio);
   let sizeInLat = Math.abs(objRatio.maxlat - objRatio.minlat);
   let sizeInLng = Math.abs(objRatio.maxlng - objRatio.minlng);
 
-  console.log(sizeInLat, sizeInLng);
+  //console.log(sizeInLat, sizeInLng);
 
   // NOTE: HARD CODED FACTORS, LOSES SMALL PARTS OF ALASKA AND HAWAII DUE TO LAT/LNG RATIO ON PURPOSE
   let xRatio = 3 * (myCanvas.width / 360); // NOTE: HARD CODED 3 (USA Country only in world map lat/lng)
@@ -31,7 +31,7 @@ const drawPoints = (lat, lng, color, size = 2, objRatio) => {
   let x = (lng + 180) * xRatio; //- Math.abs(sizeInLat);
   let y = (90 - lat) * yRatio; //- Math.abs(sizeInLng);
 
-  console.log(x + " " + y);
+  //console.log(x + " " + y);
 
   ctx.fillStyle = color;
   ctx.fillRect(x - size, y - size, 2 * size, 2 * size);
@@ -73,6 +73,13 @@ const loadStatePoints = (state) => {
       data.forEach((city) => {
         if (city.state === state) {
           drawPoints(city.lat, city.lng, "black", 2, {
+            minlat,
+            maxlat,
+            minlng,
+            maxlng,
+          });
+        } else {
+          drawPoints(city.lat, city.lng, "grey", 1, {
             minlat,
             maxlat,
             minlng,
@@ -139,12 +146,13 @@ const loadCityStates = (city) => {
 
 const loadCity = (id) => {
   let url = urlPrefix + `api/cities/${id}`;
+  console.log("loadCity started at " + Date.now());
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
       let city = data;
       localStorage.setItem("selectedCity", city);
-      console.log(city);
+      //console.log(city);
       document.getElementById("id").value = city.id;
       document.getElementById("city").value = city.city;
       document.getElementById("state").value = city.state;
@@ -157,10 +165,23 @@ const loadCity = (id) => {
       document.getElementById("lat").value = city.lat;
       document.getElementById("lng").value = city.lng;
       loadCityStates(city);
+      console.log("loadCity resolved at " + Date.now());
     })
     .catch((error) => console.error("Error fetching city:", error));
+
+  console.log("loadCity finished at " + Date.now());
 };
 
 if (selectedCityId) {
   loadCity(selectedCityId);
+
+  // example using cityUtility methods....
+  let testUtility = cityUtility.loadCity(selectedCityId, (data) => {
+    console.log("Callback from loadCity");
+    console.log(data);
+    return data;
+  });
+  // NOTE: testUtility is undefined because loadCity is a higher order function
+  // NOTE: result won't exist until the callback is executed which returns the .then data returned from the fetch
+  console.log(testUtility);
 }
