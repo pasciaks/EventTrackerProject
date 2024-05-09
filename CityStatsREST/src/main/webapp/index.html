@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title>Home</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script defer crossorigin="anonymous"
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script defer type="text/javascript" src="js/script.js"></script>
+</head>
+
+<body>
+
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="index.html">City Event Tracker</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="home.html">Home</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="list.html">Top Cities</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="population.html">City Population</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="distance.html">City Distance</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="add-edit.html">Add</a></li>
+						<li class="nav-item"><a target="_blank" class="nav-link"
+							href="https://github.com/pasciaks/EventTrackerProject#readme">About</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container">
+
+		<h1>Hello, world!</h1>
+
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary" data-bs-target="#staticBackdrop"
+			data-bs-toggle="modal" type="button">Launch static backdrop
+			modal</button>
+
+		<!-- Off Canvas href link trigger -->
+		<a aria-controls="offcanvasExample" class="btn btn-primary"
+			data-bs-toggle="offcanvas" href="#offcanvasExample" role="button">
+			Link with href </a>
+
+		<!-- Off Canvas button trigger -->
+		<button aria-controls="offcanvasExample" class="btn btn-primary"
+			data-bs-target="#offcanvasExample" data-bs-toggle="offcanvas"
+			type="button">Button with data-bs-target</button>
+
+		<!-- Off Canvas -->
+		<div aria-labelledby="offcanvasExampleLabel"
+			class="offcanvas offcanvas-start" id="offcanvasExample" tabindex="-1">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+				<button aria-label="Close" class="btn-close text-reset"
+					data-bs-dismiss="offcanvas" type="button"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div>Some text as placeholder. In real life you can have the
+					elements you have chosen. Like, text, images, lists, etc.</div>
+				<div class="dropdown mt-3">
+					<button class="btn btn-secondary dropdown-toggle"
+						data-bs-toggle="dropdown" id="dropdownMenuButton" type="button">
+						Dropdown button</button>
+					<ul aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Modal -->
+	<div aria-hidden="true" aria-labelledby="staticBackdropLabel"
+		class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+		id="staticBackdrop" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+					<button aria-label="Close" class="btn-close"
+						data-bs-dismiss="modal" type="button"></button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" data-bs-dismiss="modal"
+						type="button">Close</button>
+					<button class="btn btn-primary" type="button">Understood</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+
+</html>
