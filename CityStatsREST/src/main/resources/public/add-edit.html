@@ -42,7 +42,7 @@
 
         <div class="container">
             <h2>Add/Edit Form</h2>
-            <form id="cityForm" method="GET" ACTION="success.html" onsubmit="return onSubmitForm()">
+            <form name="cityForm" id="cityForm" method="GET" ACTION="success.html" onsubmit="return onSubmitForm()">
                 <div class="form-row">
                     <!-- ID (Hidden) -->
                     <input type="hidden" id="id" name="id" value="20943">
@@ -117,16 +117,20 @@
                 </div>
 
                 <!-- submitButton Button -->
+                <!-- KEEP THESE AS SUBMIT TYPE AND HANDLE APPROPRIATELY -->
                 <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
 
                 <!-- createButton Button -->
-                <button type="button" id="createButton" class="btn btn-primary">Add</button>
+                <!-- KEEP THESE AS SUBMIT TYPE AND HANDLE APPROPRIATELY -->
+                <button type="submit" id="createButton" class="btn btn-primary">Add</button>
 
                 <!-- updateButton Button -->
-                <button type="button" id="updateButton" class="btn btn-warning">Edit</button>
+                <!-- KEEP THESE AS SUBMIT TYPE AND HANDLE APPROPRIATELY -->
+                <button type="submit" id="updateButton" class="btn btn-warning">Edit</button>
 
                 <!-- deleteButton Button -->
-                <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
+                <!-- KEEP THESE AS SUBMIT TYPE AND HANDLE APPROPRIATELY -->
+                <button type="submit" id="deleteButton" class="btn btn-danger">Delete</button>
             </form>
         </div>
 

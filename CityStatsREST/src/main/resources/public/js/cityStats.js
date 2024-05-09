@@ -1,15 +1,4 @@
 (() => {
-  let urlPrefix = "";
-
-  if (
-    window.location.href.indexOf("127.0.0.1") > -1 ||
-    window.location.href.indexOf("localhost") > -1
-  ) {
-    urlPrefix = "http://localhost:8083/";
-  } else {
-    urlPrefix = "";
-  }
-
   let minlat = 99999;
   let maxlat = -99999;
   let minlng = 99999;
@@ -380,7 +369,7 @@
     }
   };
 
-  let loadCities = function (stateName) {
+  let loadCities = function () {
     let url = urlPrefix + `api/cities`;
     fetch(url)
       .then((response) => response.json())
@@ -439,8 +428,8 @@
         data.forEach((city) => {
           const ahref = document.createElement("a");
           //ahref.href = `api/cities/${city.id}`;
-          //ahref.href = `add-edit.html?cityId=${city.id}`;
-          ahref.href = `detail.html?cityId=${city.id}`;
+          //ahref.href = `add-edit.html?id=${city.id}`;
+          ahref.href = `detail.html?id=${city.id}`;
 
           ahref.textContent = "[" + city.city + "]";
           cityList.appendChild(ahref);

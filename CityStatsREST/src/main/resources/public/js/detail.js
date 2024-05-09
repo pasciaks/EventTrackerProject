@@ -1,5 +1,5 @@
 console.log("detail.js loaded");
 
-let cityId = getParameterByName("cityId");
+let id = getParameterByName("id");
 
-console.log(cityId);
+console.log(id);
