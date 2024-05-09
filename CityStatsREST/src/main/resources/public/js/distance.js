@@ -98,65 +98,12 @@ const fnSuccess = (data) => {
       break;
   }
 
-  const actionHandler = function () {
-    let specialDataSet = document.getElementById("specialDataSet");
-    let cityId = specialDataSet.getAttribute("data-id");
-    localStorage.setItem("selectedCityId", cityId);
-    // alert(
-    //   "You clicked the action button! The city ID is: " +
-    //     specialDataSet.getAttribute("data-id")
-    // );
-    hideModal();
-    //window.location.href = `detail.html?id=${cityId}`;
-    window.location.href = `detail.html`;
-  };
-
-  const hideModal = function () {
-    const myModalEl = document.getElementById("myModal");
-    var dismissButtons = myModalEl.querySelectorAll(
-      '[data-bs-dismiss="modal"]'
-    );
-    dismissButtons.forEach(function (button) {
-      button.removeEventListener("click", hideModal);
-    });
-    myModalEl
-      .querySelector("#actionButton")
-      .removeEventListener("click", actionHandler);
-    myModalEl.style.display = "none";
-  };
-
-  const showModal = function (htmlContent) {
-    const myModalEl = document.getElementById("myModal");
-    var dismissButtons = myModalEl.querySelectorAll(
-      '[data-bs-dismiss="modal"]'
-    );
-    dismissButtons.forEach(function (button) {
-      button.addEventListener("click", hideModal);
-    });
-    myModalEl
-      .querySelector("#actionButton")
-      .addEventListener("click", actionHandler);
-
-    const myModalBodyEl = document.getElementById("myModalBody");
-    myModalBodyEl.innerHTML = "";
-    const div = document.createElement("div");
-    div.innerHTML = htmlContent;
-    myModalBodyEl.appendChild(div);
-
-    myModalEl.style.display = "block";
-  };
-
   tableUtility.clickHandler = function (event) {
     event.preventDefault();
+    console.log("!!You clicked on a table row!");
     console.log(event.target.parentElement.firstChild.textContent);
     let cityId = Number(event.target.parentElement.dataset.id);
-    showModal(
-      "<h1 id='specialDataSet' data-id='" +
-        cityId +
-        "'>City ID: " +
-        cityId +
-        "</h1>"
-    );
+    window.location.href = `detail.html?id=${cityId}`;
   };
 
   let newTable = tableUtility.createTable(data, "id");
