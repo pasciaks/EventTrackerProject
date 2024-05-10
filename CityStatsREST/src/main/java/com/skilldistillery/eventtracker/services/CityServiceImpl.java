@@ -155,4 +155,10 @@ public class CityServiceImpl implements CityService {
 		return cityDistance;
 	}
 
+	@Override
+	public List<City> findAllCityInIdList(List<Long> ids) {
+		List<City> favoritedCities = cityRepo.findAllCityInIdList(ids);
+		return favoritedCities;
+	}
+
 }

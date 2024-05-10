@@ -39,4 +39,6 @@ public interface CityService {
 	// double value
 	Double findCityDistance(int cityId, double givenLat, double givenLng);
 
+	List<City> findAllCityInIdList(List<Long> ids);
+
 }

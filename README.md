@@ -63,6 +63,10 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 | GET       | `/api/cities/states/{state}`              |                                                | List < City > cities                     | List of cities in state endpoint       |
 | GET       | `/api/citypages`?pageSize=10&pageNumber=0 |                                                | List < City > (Pageable)                 | **Retrieve** **List** City endpoint    |
 
+# Additional Stretch Goal Endpoints
+
+- localhost:8083/api/cities/favorites/6,88,99999
+
 # Pageable
 
 - Note: In preparation for the coming Javascript implementation, with particular concerns for my 31k of rows, I've implemented Pageable to help limit the query size returns in order to efficiently handle the request traffic as well as provide user convenience for large data sets. The front end shall include ability to page through data and efficiently retrieve city rows without the need to return the 5 MB + size of all row data.

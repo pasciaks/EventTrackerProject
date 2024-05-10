@@ -213,4 +213,25 @@ public class CityController {
 		return cityService.findCityDistances(givenLat, givenLng, howFar);
 	}
 
+	// favorite cities in id list
+	@GetMapping("cities/favorites/{idList}")
+	public List<City> findAllCityInIdList(@PathVariable(value = "idList", required = true) String idList,
+			HttpServletResponse response) {
+
+		List<Long> ids = null;
+		try {
+			String[] idArray = idList.split(",");
+			ids = new java.util.ArrayList<>();
+			for (String id : idArray) {
+				ids.add(Long.parseLong(id));
+			}
+		} catch (NumberFormatException e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+			return null;
+		}
+
+		response.setStatus(HttpServletResponse.SC_OK); // 200
+		return cityService.findAllCityInIdList(ids);
+	}
+
 }

@@ -2,146 +2,159 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script defer src="js/root.js" type="text/javascript"></script>
-    <script defer src="js/cityUtility.js" type="text/javascript"></script>
-    <script defer src="js/tableUtility.js" type="text/javascript"></script>
-    <script defer src="js/detail.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<script defer src="js/root.js" type="text/javascript"></script>
+<script defer src="js/cityUtility.js" type="text/javascript"></script>
+<script defer src="js/tableUtility.js" type="text/javascript"></script>
+<script defer src="js/detail.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
 
-    <header id="nav">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">City Event Tracker</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </nav>
+	<header id="nav">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">City Event Tracker</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</nav>
 
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <div class="alert alert-primary" role="alert">
-                        The dataset that was used to populate the 31k + cities for this
-                        project was downloaded for free from <a
-                            href="https://simplemaps.com/data/us-cities">https://simplemaps.com/data/us-cities.</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="alert alert-primary" role="alert">
+						The dataset that was used to populate the 31k + cities for this
+						project was downloaded for free from <a
+							href="https://simplemaps.com/data/us-cities">https://simplemaps.com/data/us-cities.</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
-    <main>
+	<main>
 
-        <div class="container">
-            <h2>Detail</h2>
-            <div class="form-row">
-                <!-- ID (Hidden) -->
-                <input type="hidden" id="id" name="id" value="">
+		<div class="container">
+			<h2>Detail</h2>
+			<button id="addToFavorites" class="btn btn-primary">Add to
+				Favorites</button>
+			<button id="removeFromFavorites" class="btn btn-primary">Remove
+				from Favorites</button>
+			<hr>
+			<div class="form-row">
+				<!-- ID (Hidden) -->
+				<input type="hidden" id="id" name="id" value="">
 
-                <!-- City -->
-                <div class="form-group col-md-4">
-                    <label for="city">City:</label>
-                    <input disabled type="text" class="form-control" id="city" name="city" value="" required>
-                </div>
+				<!-- City -->
+				<div class="form-group col-md-4">
+					<label for="city">City:</label> <input disabled type="text"
+						class="form-control" id="city" name="city" value="" required>
+				</div>
 
-                <!-- State -->
-                <div class="form-group col-md-4">
-                    <label for="state">State:</label>
-                    <input disabled type="text" class="form-control" id="state" name="state" value="" required>
-                </div>
+				<!-- State -->
+				<div class="form-group col-md-4">
+					<label for="state">State:</label> <input disabled type="text"
+						class="form-control" id="state" name="state" value="" required>
+				</div>
 
-                <!-- County -->
-                <div class="form-group col-md-4">
-                    <label for="county">County:</label>
-                    <input disabled type="text" class="form-control" id="county" name="county" value="" required>
-                </div>
-            </div>
+				<!-- County -->
+				<div class="form-group col-md-4">
+					<label for="county">County:</label> <input disabled type="text"
+						class="form-control" id="county" name="county" value="" required>
+				</div>
+			</div>
 
-            <div class="form-row">
-                <!-- Latitude -->
-                <div class="form-group col-md-4">
-                    <label for="lat">Latitude:</label>
-                    <input disabled type="text" class="form-control" id="lat" name="lat" value="" required>
-                </div>
+			<div class="form-row">
+				<!-- Latitude -->
+				<div class="form-group col-md-4">
+					<label for="lat">Latitude:</label> <input disabled type="text"
+						class="form-control" id="lat" name="lat" value="" required>
+				</div>
 
-                <!-- Longitude -->
-                <div class="form-group col-md-4">
-                    <label for="lng">Longitude:</label>
-                    <input disabled type="text" class="form-control" id="lng" name="lng" value="" required>
-                </div>
+				<!-- Longitude -->
+				<div class="form-group col-md-4">
+					<label for="lng">Longitude:</label> <input disabled type="text"
+						class="form-control" id="lng" name="lng" value="" required>
+				</div>
 
-                <!-- Population -->
-                <div class="form-group col-md-4">
-                    <label for="population">Population:</label>
-                    <input disabled type="number" class="form-control" id="population" name="population" value=""
-                        required>
-                </div>
-            </div>
+				<!-- Population -->
+				<div class="form-group col-md-4">
+					<label for="population">Population:</label> <input disabled
+						type="number" class="form-control" id="population"
+						name="population" value="" required>
+				</div>
+			</div>
 
-            <div class="form-row">
-                <!-- Density -->
-                <div class="form-group col-md-4">
-                    <label for="density">Density:</label>
-                    <input disabled type="number" class="form-control" id="density" name="density" value="" required>
-                </div>
+			<div class="form-row">
+				<!-- Density -->
+				<div class="form-group col-md-4">
+					<label for="density">Density:</label> <input disabled type="number"
+						class="form-control" id="density" name="density" value="" required>
+				</div>
 
-                <!-- Timezone -->
-                <div class="form-group col-md-4">
-                    <label for="timezone">Timezone:</label>
-                    <input disabled type="text" class="form-control" id="timezone" name="timezone" value="" required>
-                </div>
+				<!-- Timezone -->
+				<div class="form-group col-md-4">
+					<label for="timezone">Timezone:</label> <input disabled type="text"
+						class="form-control" id="timezone" name="timezone" value=""
+						required>
+				</div>
 
-                <!-- Ranking -->
-                <div class="form-group col-md-4">
-                    <label for="ranking">Ranking:</label>
-                    <input disabled type="number" class="form-control" id="ranking" name="ranking" value="" required>
-                </div>
-            </div>
+				<!-- Ranking -->
+				<div class="form-group col-md-4">
+					<label for="ranking">Ranking:</label> <input disabled type="number"
+						class="form-control" id="ranking" name="ranking" value="" required>
+				</div>
+			</div>
 
-            <!-- ZIP Codes -->
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="zips">ZIP Codes:</label>
-                    <input disabled type="text" class="form-control" id="zips" name="zips" value="" required>
-                </div>
-            </div>
+			<!-- ZIP Codes -->
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="zips">ZIP Codes:</label> <input disabled type="text"
+						class="form-control" id="zips" name="zips" value="" required>
+				</div>
+			</div>
 
-        </div>
+		</div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                <div id="onDemanRequest"><p>TODO: When <button>Click Me</button>, go get even more details.</p></div>
-                    <div id="statePopulation"></div>
-                    <div class="d-block">
-                        <h3>State Map with City Highlighed using Canvas</h3>
-                        <canvas id="stateCanvas" width="600" height="400"></canvas>
-                    </div>
-                </div>
-                <div class="col">
-                    <h3>Other cities in this State</h3>
-                    <div id="citiesInThisState"></div>
-                </div>
-            </div>
-        </div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div id="statePopulation"></div>
+					<div class="d-block">
+						<h3>State Map with City Highlighed using Canvas</h3>
+						<canvas id="stateCanvas" width="600" height="400"></canvas>
+					</div>
+				</div>
+				<div class="col">
+					<h3>Other cities in this State</h3>
+					<button id="getOtherCitiesInThisState" class="btn btn-primary">Load
+						Other Cities</button>
+					<div id="citiesInThisState"></div>
+				</div>
+			</div>
+		</div>
 
-        <!-- Bootstrap JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-    </main>
+	</main>
 
 </body>
 

@@ -1,5 +1,11 @@
+
 const cityUtilityResults = new Promise((resolve, reject) => {
-	let url = urlPrefix + `api/cities`;
+	let testObj = JSON.parse(localStorage.getItem(`_cityFavorites`));
+	let stringList = "";
+	if (testObj) {
+		stringList = Object.keys(testObj).join(',');
+	}
+	let url = urlPrefix + `api/cities/favorites/${stringList}`;
 	fetch(url)
 		.then((response) => response.json())
 		.then((data) => {
@@ -10,31 +16,25 @@ const cityUtilityResults = new Promise((resolve, reject) => {
 		});
 });
 
-const fnFilterForPopulationEqualTo = (data, population) => {
-	data = data.filter((item) => {
-		return Number(item.population) === Number(population);
-	});
-	return data;
-};
-
-const fnFilterForPopulationGreaterThan = (data, population) => {
-	data = data.filter((item) => {
-		return Number(item.population) >= Number(population);
-	});
-	return data;
-};
-
 const fnRemoveUnwantedProperties = (data, arrayOfProperties) => {
+	if (!data || data.length === 0) {
+		data = [];
+		return data;
+	}
 	tableUtility.hiddenColumns = arrayOfProperties;
-	// data = data.map((item) => {
-	//   delete item.zips;
-	//   delete item.ranking;
-	//   return item;
-	// });
+	data = data.map((item) => {
+		delete item.zips;
+		delete item.ranking;
+		return item;
+	});
 	return data;
 };
 
 const fnSortByCustomSorter = (data, sorter) => {
+	if (!data || data.length === 0) {
+		data = [];
+		return data;
+	}
 	data = data.sort(sorter);
 	return data;
 };
@@ -47,56 +47,25 @@ const fnCustomSortByCityName = (a, b) => {
 	return a.city.localeCompare(b.city);
 };
 
-const fnFilterForCityName = (data, cityName) => {
-	data = data.filter((item) => {
-		return item.city.toLowerCase().indexOf(cityName.toLowerCase()) > -1;
-	});
-	return data;
-};
-
-const fnFilterForStateName = (data, stateName) => {
-	data = data.filter((item) => {
-		return item.state.toLowerCase().indexOf(stateName.toLowerCase()) > -1;
-	});
-	return data;
-};
-
 const fnSuccess = (data) => {
 
-	if (!data || data.length === 0) {
-		data = [];
-	}
-
-	let populationLimit = 0;
-
-	if (getParameterByName("population")) {
-		if (getParameterByName("population") === "-1") {
-			data = fnFilterForPopulationEqualTo(data, 0);
-		} else {
-			populationLimit = Number(getParameterByName("population"));
-			data = fnFilterForPopulationGreaterThan(data, Number(populationLimit));
-		}
-	} else {
-		populationLimit = 1000000;
-		data = fnFilterForPopulationGreaterThan(data, Number(populationLimit));
-	}
-
-	data = fnFilterForCityName(data, getParameterByName("cityName"));
-
-	data = fnFilterForStateName(data, getParameterByName("stateName"));
-
 	data = fnRemoveUnwantedProperties(data, ["zips", "ranking"]);
+
+	if (!data || data.length === 0) {
+		document.getElementById("table").innerHTML = "<h1>No data to display</h1>";
+		return;
+	}
 
 	let sort = getParameterByName("sort");
 
 	switch (sort) {
-		case "city":
+		case "city": // city
 			data = fnSortByCustomSorter(data, fnCustomSortByCityName);
 			break;
-		case "population":
+		case "population": // population
 			data = fnSortByCustomSorter(data, fnCustomSortByLargestPopulation);
 			break;
-		default:
+		default: // id
 			data = fnSortByCustomSorter(data, function(a, b) {
 				return a.id - b.id;
 			});
@@ -107,12 +76,7 @@ const fnSuccess = (data) => {
 		let specialDataSet = document.getElementById("specialDataSet");
 		let cityId = specialDataSet.getAttribute("data-id");
 		localStorage.setItem("selectedCityId", cityId);
-		// alert(
-		//   "You clicked the action button! The city ID is: " +
-		//     specialDataSet.getAttribute("data-id")
-		// );
 		hideModal();
-		//window.location.href = `detail.html?id=${cityId}`;
 		window.location.href = `detail.html`;
 	};
 
@@ -171,13 +135,8 @@ const fnSuccess = (data) => {
 
 const fnError = (error) => {
 	console.log(error);
-	alert("There was an error. Please try again later.");
 };
-
 
 tableUtility.createTable(
 	cityUtilityResults.then(fnSuccess).catch(fnError)
 );
-
-
-
