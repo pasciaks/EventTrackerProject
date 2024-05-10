@@ -1,3 +1,5 @@
+/*
+
 const cityUtilityResults = new Promise((resolve, reject) => {
 	let url = urlPrefix + `api/cities`;
 	fetch(url)
@@ -9,6 +11,8 @@ const cityUtilityResults = new Promise((resolve, reject) => {
 			reject(error);
 		});
 });
+
+*/
 
 const fnFilterForPopulationEqualTo = (data, population) => {
 	data = data.filter((item) => {
@@ -155,29 +159,48 @@ const fnSuccess = (data) => {
 		event.preventDefault();
 		console.log(event.target.parentElement.firstChild.textContent);
 		let cityId = Number(event.target.parentElement.dataset.id);
-		showModal(
-			"<h1 id='specialDataSet' data-id='" +
-			cityId +
-			"'>City ID: " +
-			cityId +
-			"</h1>"
-		);
+		if (!isNaN(cityId)) {
+			showModal(
+				"<h1 id='specialDataSet' data-id='" +
+				cityId +
+				"'>City ID: " +
+				cityId +
+				"</h1>"
+			);
+		}
 	};
 
-	let newTable = tableUtility.createTable(data, "id");
+	const deleteHandler = function(row) {
+		console.log("Captured click:" + JSON.stringify(row));
+		deleteRow(row);
+	}
+
+	let newTable = tableUtility.createTable(data, "id", deleteHandler);
 	document.getElementById("table").appendChild(newTable);
 	document.getElementById("countOfRows").textContent = data.length;
 };
+
+const deleteRow = (row) => {
+	alert("todo - backend delete --> Delete row with id: " + row?.id);
+	let rowToRemove = document.getElementById("row-" + row?.id)
+	rowToRemove.parentElement.removeChild(rowToRemove);
+}
 
 const fnError = (error) => {
 	console.log(error);
 	alert("There was an error. Please try again later.");
 };
 
+const getFromDatabase = () => {
+	let url = urlPrefix + `api/cities`;
+	fetch(url)
+		.then((response) => response.json())
+		.then((data) => {
+			fnSuccess(data);
+		})
+		.catch((error) => {
+			fnError(error);
+		});
+}
 
-//tableUtility.createTable(
-cityUtilityResults.then(fnSuccess).catch(fnError)
-//);
-
-
-
+setTimeout(getFromDatabase, 0);
