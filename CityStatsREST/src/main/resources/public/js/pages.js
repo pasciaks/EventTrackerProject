@@ -13,28 +13,16 @@ const fnRemoveUnwantedProperties = (data, arrayOfProperties) => {
 	return data;
 };
 
-const removeFromFavorites = () => {
-	let specialDataSet = document.getElementById("specialDataSet");
-	let cityId = specialDataSet.getAttribute("data-id");
-	let testObj = JSON.parse(localStorage.getItem(`_cityFavorites`));
-	if (testObj) {
-		delete testObj[cityId];
-		localStorage.setItem(`_cityFavorites`, JSON.stringify(testObj));
-	} else {
-		localStorage.setItem(`_cityFavorites`, JSON.stringify({}));
-	}
-}
-
 const addEventListeners = () => {
-	document.getElementById("unfavoritebutton").addEventListener("click", function(event) {
-		event.preventDefault();
-		removeFromFavorites();
-		setTimeout(() => {
-			queryDatabaseForResults();
-			showLocalStorageSavedFavorites();
-		}, 0);
-		hideModal();
+
+	document.getElementById("pageSize").addEventListener("change", function() {
+		queryDatabaseForResults();
 	});
+
+	document.getElementById("pageNumber").addEventListener("change", function() {
+		queryDatabaseForResults();
+	});
+
 };
 
 const actionHandler = function() {
@@ -109,7 +97,7 @@ const fnSuccess = (data) => {
 	let newTable = tableUtility.createTable(data, "id");
 	document.getElementById("table").innerHTML = "";
 	document.getElementById("table").appendChild(newTable);
-	document.getElementById("countOfRows").textContent = data.length + " items found";
+	document.getElementById("countOfRows").textContent = (data?.length || 0) + " items found";
 };
 
 const fnError = (error) => {
@@ -122,101 +110,42 @@ const fnError = (error) => {
 
 const queryDatabaseForResults = () => {
 
-	let locallyStoredFavorites = JSON.parse(localStorage.getItem(`_cityFavorites`));
+	//let pageSize = prompt("What page size ?","2");
+	//let pageNumber = prompt("What page number ?","1");
 
-	let stringList = "";
+	//let pageSize = Math.floor(Math.random() * 25) + 25;
+	//let pageNumber = Math.floor(Math.random() * 100) + 0;
 
-	if (locallyStoredFavorites) {
-		stringList = Object.keys(locallyStoredFavorites).join(',');
-	}
+	document.getElementById("countOfRows").textContent = "Loading...";
 
-	let url = urlPrefix + `api/cities/favorites/${stringList}`;
-	
-	document.getElementById("idList").textContent = stringList;
+	let pageNumber = document.getElementById("pageNumber").value;
+	let pageSize = document.getElementById("pageSize").value;
+
+	let url = urlPrefix + `api/citypages?pageSize=${pageSize}&pageNumber=${pageNumber}`;
+
+	document.getElementById("pageSizeValue").textContent = pageSize;
+	document.getElementById("pageNumberValue").textContent = pageNumber;
 
 	fetch(url)
 		.then((response) => response.json())
 		.then((data) => {
+			if (data.numberOfElements === 0) {
+				document.getElementById("countOfRows").textContent = "";
+				showNoData("table");
+			}
+			document.getElementById("preContainer").textContent = JSON.stringify(data, null, 2);
+			data = data.content;
 			fnSuccess(data);
 		})
 		.catch((error) => {
+			document.getElementById("countOfRows").textContent = "";
 			fnError(error);
 		});
 
 };
 
-const populateFavoritesTable = (data) => {
-
-	if (!data || data.length === 0) {
-		showNoData("favoritesTable");
-		return;
-	}
-
-	data = fnRemoveUnwantedProperties(data, ["zips", "ranking"]);
-
-	tableUtility.clickHandler = function(event) {
-		event.preventDefault();
-		console.log(event.target.parentElement.firstChild.textContent);
-		let cityId = Number(event.target.parentElement.dataset.id);
-		showModal(
-			"<h1 id='specialDataSet' data-id='" +
-			cityId +
-			"'>City ID: " +
-			cityId +
-			"</h1>"
-		);
-	};
-
-	let newTable = tableUtility.createTable(data, "id");
-	document.getElementById("favoritesTable").innerHTML = "";
-	document.getElementById("favoritesTable").appendChild(newTable);
-	document.getElementById("countOfRowsFavorites").textContent = data.length + " items found";
-}
-
-const showLocalStorageSavedFavorites = () => {
-
-	console.log(`showLocalStorageSavedFavorites`);
-
-	let storedFavorites = JSON.parse(localStorage.getItem(`_cityFavorites`));
-
-	let favoritesArray = [];
-
-	if (storedFavorites) {
-
-		Object.keys(storedFavorites).map((key) => {
-			delete storedFavorites[key].lat;
-			delete storedFavorites[key].lng;
-			delete storedFavorites[key].density;
-			delete storedFavorites[key].county;
-			delete storedFavorites[key].population;
-			delete storedFavorites[key].timezone;
-			favoritesArray.push(storedFavorites[key]);
-		});
-		
-		favoritesArray.sort((a, b) => {
-			let aDate = new Date(a.favoritedOn);
-			let bDate = new Date(b.favoritedOn);
-			if (aDate < bDate) {
-				return 1;
-			}
-			if (aDate > bDate) {
-				return -1;
-			}
-			return 0;
-		});
-
-		populateFavoritesTable(favoritesArray);
-		
-	} else {
-		showNoData("favoritesTable");
-	}
-
-
-}
-
 addEventListeners();
 
 setTimeout(() => {
 	queryDatabaseForResults();
-	showLocalStorageSavedFavorites();
 }, 0);

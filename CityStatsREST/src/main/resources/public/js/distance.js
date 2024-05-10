@@ -306,7 +306,7 @@ let statesObj = {
 // create ahref with each state key and a lat and lng query string
 let stateLinks = "";
 for (let state in statesObj) {
-	stateLinks += `<a class="" href="distance.html?lat=${statesObj[state].lat}&lng=${statesObj[state].long}"><span>${state}</span></a> `;
+	stateLinks += `<a class="" href="distance.html?lat=${statesObj[state].lat}&lng=${statesObj[state].long}&capital=${statesObj[state].capital}"><span>${state}</span></a> `;
 }
 
 document.getElementById("stateLinks").innerHTML = stateLinks;
@@ -389,6 +389,12 @@ const setUp = () => {
 
 
 	});
+
+	if (getParameterByName("capital")) {
+		document.getElementById('selectedStateCapital').textContent = "Chosen Capital: " + getParameterByName("capital");
+	} else {
+		// document.getElementById('selectedStateCapital').textContent = "";
+	}
 
 	if (getParameterByName("lat")) {
 		document.getElementById('rangePickerLat').value = getParameterByName("lat");

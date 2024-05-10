@@ -2,119 +2,101 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Population</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script defer src="js/root.js" type="text/javascript"></script>
-    <script defer src="js/cityUtility.js" type="text/javascript"></script>
-    <script defer src="js/tableUtility.js" type="text/javascript"></script>
-    <script defer src="js/population.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-        .table-container {
-            font-family: 'Courier New', Courier, monospace;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Population</title>
+<!-- Bootstrap CSS -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<script defer src="js/root.js" type="text/javascript"></script>
+<script defer src="js/cityUtility.js" type="text/javascript"></script>
+<script defer src="js/tableUtility.js" type="text/javascript"></script>
+<script defer src="js/population.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<style>
+.table-container {
+	font-family: 'Courier New', Courier, monospace;
+}
 
-        td {
-            padding: 5px;
-            margin: 5px;
-            border: 1px solid grey;
-        }
-    </style>
+td {
+	padding: 5px;
+	margin: 5px;
+	border: 1px solid grey;
+}
+</style>
 </head>
 
 <body>
 
-    <header id="nav">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">City Event Tracker</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </nav>
+	<header id="nav">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">City Event Tracker</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</nav>
+	</header>
 
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <div class="alert alert-primary" role="alert">
-                        The dataset that was used to populate the 31k + cities for this
-                        project was downloaded for free from <a
-                            href="https://simplemaps.com/data/us-cities">https://simplemaps.com/data/us-cities.</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+	<main>
 
-    <main>
+		<!-- Modal -->
+		<div class="modal" id="myModal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="bg-info modal-content" id="myModalContent">
+					<div class="modal-header">
+						<h5 class="modal-title">Selected City</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body" id="myModalBody">
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" id="actionButton">Details</button>
 
-        <div class="container">
-            <form method="get" action="population.html">
+					</div>
+				</div>
+			</div>
+		</div>
 
-                <div class="row">
-                    <div class="col">
-                        <label for="search">Sort:</label>
-                    </div>
-                    <div class="col">
-                        <select class="form-control" id="sort" name="sort">
-                            <option selected value="id">Id</option>
-                            <option value="city">City</option>
-                            <option value="population">Population</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="search">Population Filter:</label>
-                    </div>
-                    <div class="col">
-                        <select class="form-control" id="population" name="population">
-                            <option value="0">All</option>
-                            <option selected value="-1">= 0</option>
-                            <option selected value="500000">> 500,000</option>
-                            <option selected value="1000000">> 1,000,000</option>
-                            <option value="5000000">> 5,000,000</option>
-                        </select>
-                    </div>
-                </div>
+		<div class="container text-center m-5 text-center">
 
-                <div class="row">
-                    <div class="col">
-                        <label for="search">Filter for City Name:</label>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" id="cityName" name="cityName"
-                            placeholder="Enter city name" value="">
-                    </div>
-                    <div class="col">
-                        <label for="search">Filter for State Name:</label>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" id="stateName" name="stateName"
-                            placeholder="Enter state name" value="">
-                    </div>
-                </div>
+			<alert id="alert" class="text-center w-100 alert alert-info"
+				role="alert">Query of cities paging
+			(/api/citypages?pageSize={<span id="pageSize"></span>}&pageNumber={<span
+				id="pageNumber"></span>})</alert>
 
-                <p><span><span id="countOfRows"></span> results found. </span> <input type="submit"
-                        class="btn btn-primary w-100" value="Filter / Search / Sort"></p>
-
-            </form>
-        </div>
-
-        <div id="table" class="container table-container">
-
-        </div>
-
-        <!-- Bootstrap JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		</div>
 
 
-    </main>
+		<div class="container">
+			<p>
+				<span><span id="countOfRows"></span></span>
+			</p>
+		</div>
+
+		<div id="table" class="container table-container"></div>
+		
+		<pre id="preContainer"></pre>
+
+		<!-- Bootstrap JS -->
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+	</main>
 
 </body>
 

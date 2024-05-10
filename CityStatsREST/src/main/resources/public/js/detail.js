@@ -23,6 +23,7 @@ function checkIfFavoritedInLocalStorage(city) {
 function addToFavoritedInLocalStorage(city) {
 	let testObj = JSON.parse(localStorage.getItem(`_cityFavorites`));
 	if (testObj) {
+		city.favoritedOn = new Date().toLocaleString();
 		testObj[city.id] = city;
 		localStorage.setItem(`_cityFavorites`, JSON.stringify(testObj));
 		checkFavorited();
