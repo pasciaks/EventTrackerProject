@@ -175,9 +175,9 @@ const fnError = (error) => {
 };
 
 
-tableUtility.createTable(
-	cityUtilityResults.then(fnSuccess).catch(fnError)
-);
+//tableUtility.createTable(
+cityUtilityResults.then(fnSuccess).catch(fnError)
+//);
 
 
 

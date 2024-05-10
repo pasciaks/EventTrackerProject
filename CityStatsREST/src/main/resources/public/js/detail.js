@@ -70,7 +70,6 @@ document.getElementById("removeFromFavorites").addEventListener("click", (event)
 
 const drawPoints = (lat, lng, color, size = 2, objRatio) => {
 
-
 	let sizeInLat = Math.abs(objRatio.maxlat - objRatio.minlat);
 	let sizeInLng = Math.abs(objRatio.maxlng - objRatio.minlng);
 
@@ -217,6 +216,15 @@ const loadCity = (id) => {
 			checkFavorited();
 			loadStatePopulation(city);
 			console.log("loadCity resolved at " + Date.now());
+
+			setTimeout(() => {
+				drawPoints(city.lat, city.lng, "red", 3, {
+					minlat: city.lat - 0.1,
+					maxlat: city.lat + 0.1,
+					minlng: city.lng - 0.1,
+					maxlng: city.lng + 0.1,
+				});
+			}, 1500);
 		})
 		.catch((error) => console.error("Error fetching city:", error));
 
@@ -238,10 +246,11 @@ const checkFavorited = () => {
 if (selectedCityId) {
 	loadCity(selectedCityId);
 
-	cityUtility.loadCity(selectedCityId, (data) => {
-		console.log("Callback from loadCity");
-		console.log(data);
-		return data;
-	});
+	//cityUtility.loadCity(selectedCityId, (data) => {
+	//	console.log("Callback from loadCity");
+	//	console.log(data);
+	//
+	//	return data;
+	//});
 
 }
