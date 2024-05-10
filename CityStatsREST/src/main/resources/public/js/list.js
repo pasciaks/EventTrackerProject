@@ -181,9 +181,32 @@ const fnSuccess = (data) => {
 };
 
 const deleteRow = (row) => {
-	alert("todo - backend delete --> Delete row with id: " + row?.id);
-	let rowToRemove = document.getElementById("row-" + row?.id)
-	rowToRemove.parentElement.removeChild(rowToRemove);
+	deleteCity(row?.id || 0);
+}
+
+const deleteCity = (id) => {
+
+	let xhr = new XMLHttpRequest();
+
+	xhr.open("DELETE", `api/cities/${id}`, true);
+
+	xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status < 400) {
+				let rowToRemove = document.getElementById("row-" + id)
+				rowToRemove?.parentElement?.removeChild(rowToRemove);
+			} else {
+				console.error("DELETE request failed.");
+				console.error(xhr.responseText);
+				alert(errorResult?.errorMessage || "Unknown error");
+			}
+		}
+	};
+
+	xhr.send();
+
 }
 
 const fnError = (error) => {

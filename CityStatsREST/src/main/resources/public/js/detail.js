@@ -196,7 +196,7 @@ const loadCityStates = (selectedCityState) => {
 
 const loadCity = (id) => {
 	let url = urlPrefix + `api/cities/${id}`;
-	console.log("loadCity started at " + Date.now());
+
 	fetch(url)
 		.then((response) => response.json())
 		.then((data) => {
@@ -213,9 +213,13 @@ const loadCity = (id) => {
 			document.getElementById("zips").value = city.zips;
 			document.getElementById("lat").value = city.lat;
 			document.getElementById("lng").value = city.lng;
+
 			localStorage.setItem("selectedCity", JSON.stringify(city));
+
 			checkFavorited();
+
 			loadStatePopulation(city);
+
 			console.log("loadCity resolved at " + Date.now());
 
 			setTimeout(() => {
@@ -225,12 +229,68 @@ const loadCity = (id) => {
 					minlng: city.lng - 0.1,
 					maxlng: city.lng + 0.1,
 				});
-			}, 1500);
+			}, 500);
 		})
-		.catch((error) => console.error("Error fetching city:", error));
+		.catch((error) => {
+			document.getElementById("details").innerHTML = "City Not Found!";
+			document.getElementById("otherDetails").innerHTML = "";
+			console.error("Error fetching city:", error)
+			showCityNotFound();
+			return;
+		});
 
 	console.log("loadCity finished at " + Date.now());
 };
+
+const showCityNotFound = () => {
+
+	let html = `
+
+			<div class="container">
+			    <div class="row">
+			        <div class="col">
+			            <h1 class="text-danger">City Not Found!</h1>
+			        </div>
+			    </div>
+			</div>
+			
+			`;
+
+	document.getElementById("details").innerHTML = html;
+}
+
+const putCity = (id, city) => {
+
+	delete city.id;
+
+	let xhr = new XMLHttpRequest();
+
+	xhr.open("PUT", `api/cities/${id}`, true);
+
+	xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status == 200 || xhr.status == 201) {
+				let data = JSON.parse(xhr.responseText);
+				console.log(data);
+				alert("City with id " + data.id + " updated.");
+
+			} else {
+				console.error("PUT request failed.");
+				console.error(xhr.responseText);
+				alert(errorResult?.errorMessage || "Unknown error");
+			}
+		}
+	};
+
+	let cityObjectJSON = JSON.stringify(city); // Convert JS object to JSON string
+
+	console.log(cityObjectJSON);
+
+	xhr.send(cityObjectJSON);
+
+}
 
 const checkFavorited = () => {
 	let city = JSON.parse(localStorage.getItem("selectedCity"));
@@ -246,12 +306,4 @@ const checkFavorited = () => {
 
 if (selectedCityId) {
 	loadCity(selectedCityId);
-
-	//cityUtility.loadCity(selectedCityId, (data) => {
-	//	console.log("Callback from loadCity");
-	//	console.log(data);
-	//
-	//	return data;
-	//});
-
 }
