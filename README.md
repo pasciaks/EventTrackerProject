@@ -35,9 +35,13 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 # Technologies Used
 
 - Java
-- MySql
 - Spring Boot
 - JPA
+- MySql
+- HTML,CSS
+- JavaScript
+- Bootstrap
+- HTML Canvas
 
 # Lessons Learned
 
@@ -46,6 +50,8 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 - using very complex queries with @Query annotations
 - implemented Paging and Sorting as well as very complex queries that were not necessarily required by this assignment.
   - localhost:8083/api/cities/distances?lat=41.8375&lng=-87.6866&howFar=5
+- Using AJAX (Async Javascript And XML) requests (implemented for POST requests)
+- Using fetch web api (implemented for GET requests)
 
 # API Routes / REST Endpoints
 
