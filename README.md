@@ -250,3 +250,11 @@ const tableUtility = {
 <hr>
 
 [About The Developer (Sheldon Pasciak)](https://www.linkedin.com/in/sheldonpasciak/)
+
+### Extra Screen Shots of Deployed Site
+
+![Extra Screen Shots](e1.png)
+![Extra Screen Shots](e2.png)
+![Extra Screen Shots](e3.png)
+![Extra Screen Shots](e4.png)
+![Extra Screen Shots](e5.png)
