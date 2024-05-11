@@ -33,25 +33,47 @@
 
 	<main>
 
-		<div id="details" class="container">
-			<h2>Detail</h2>
-
-			<div class="row">
-
-				<button id="deleteCity" title="Delete"
-					class="d-inline btn btn-outline-danger">DELETE</button>
-				<button style="display: none;" id="addToFavorites"
-					title="Add to favorites" class="btn btn-outline-primary">♡
-					Not A Favorite City</button>
-				<button style="display: none;" id="removeFromFavorites"
-					title="Remove from favorites" class="btn btn-outline-primary">❤
-					Is Favorite City</button>
+		<!-- Modal -->
+		<div class="modal" id="myModal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="bg-info modal-content" id="myModalContent">
+					<div class="modal-header">
+						<h5 class="modal-title">Selected City</h5>
+						<button id="topCloseButton" type="button" class="btn-close"
+							data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" id="myModalBody">
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button id="bottomCloseButton" type="button"
+							class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-warning " id="cancelButton">Cancel</button>
+					</div>
+				</div>
 			</div>
+		</div>
 
-
-			<hr>
+		<div id="details" class="container">
 
 			<form name="cityForm" id="cityForm">
+
+				<h2>Detail</h2>
+
+				<div class="row">
+
+					<button type="button" id="deleteCity" title="Delete"
+						class="d-inline btn btn-outline-danger">DELETE</button>
+					<button type="button" style="display: none;" id="addToFavorites"
+						title="Add to favorites" class="btn btn-outline-primary">♡
+						Not A Favorite City</button>
+					<button type="button" style="display: none;"
+						id="removeFromFavorites" title="Remove from favorites"
+						class="btn btn-outline-primary">❤ Is Favorite City</button>
+				</div>
+
+
+				<hr>
 
 				<div class="form-row">
 					<!-- ID (Hidden) -->
@@ -92,7 +114,7 @@
 					<!-- Population -->
 					<div class="form-group col-md-4">
 						<label for="population">Population:</label> <input disabled
-							type="number" class="form-control" id="population"
+							type="text" class="form-control" id="population"
 							name="population" value="" required>
 					</div>
 				</div>
@@ -100,9 +122,9 @@
 				<div class="form-row">
 					<!-- Density -->
 					<div class="form-group col-md-4">
-						<label for="density">Density:</label> <input disabled
-							type="number" class="form-control" id="density" name="density"
-							value="" required>
+						<label for="density">Density:</label> <input disabled type="text"
+							class="form-control" id="density" name="density" value=""
+							required>
 					</div>
 
 					<!-- Timezone -->
@@ -114,9 +136,9 @@
 
 					<!-- Ranking -->
 					<div class="form-group col-md-4">
-						<label for="ranking">Ranking:</label> <input disabled
-							type="number" class="form-control" id="ranking" name="ranking"
-							value="" required>
+						<label for="ranking">Ranking:</label> <input disabled type="text"
+							class="form-control" id="ranking" name="ranking" value=""
+							required>
 					</div>
 				</div>
 
@@ -128,13 +150,25 @@
 					</div>
 				</div>
 
+				<br> <input type="submit" id="saveCity" title="Save" disabled
+					class="d-inline btn btn-outline-warning" value="Save"> <input
+					type="button" id="editCity" title="Edit"
+					class="d-inline btn btn-outline-warning" value="Edit"> <input
+					type="button" id="cancelEditButton" title="Cancel"
+					class="d-inline btn btn-outline-warning" value="Cancel">
+
+
+
 			</form>
+
+			<br> <input type="button" id="showCity" title="Show"
+				class="w-100 d-inline btn btn-outline-success" value="Show Dynamic Data">
 
 		</div>
 
 
 
-		<div id="otherDetails" class="container">
+		<div id="otherDetails" class="container d-none">
 
 
 
@@ -142,13 +176,13 @@
 				<div class="col">
 					<div id="statePopulation"></div>
 					<div class="d-block">
-						<h3>State Map with City Highlighed using Canvas</h3>
+						<h3>State Map with City Highlighted using Canvas</h3>
 						<canvas id="stateCanvas" width="600" height="400"></canvas>
 					</div>
 				</div>
 				<div class="col">
 					<h3>Other cities in this State</h3>
-					<button id="getOtherCitiesInThisState" class="btn btn-primary">Load
+					<button id="getOtherCitiesInThisState" class="w-100 btn btn-success">Load
 						Other Cities</button>
 					<div id="citiesInThisState"></div>
 				</div>

@@ -1,18 +1,4 @@
-/*
 
-const cityUtilityResults = new Promise((resolve, reject) => {
-	let url = urlPrefix + `api/cities`;
-	fetch(url)
-		.then((response) => response.json())
-		.then((data) => {
-			resolve(data);
-		})
-		.catch((error) => {
-			reject(error);
-		});
-});
-
-*/
 
 const fnFilterForPopulationEqualTo = (data, population) => {
 	data = data.filter((item) => {
@@ -30,11 +16,6 @@ const fnFilterForPopulationGreaterThan = (data, population) => {
 
 const fnRemoveUnwantedProperties = (data, arrayOfProperties) => {
 	tableUtility.hiddenColumns = arrayOfProperties;
-	// data = data.map((item) => {
-	//   delete item.zips;
-	//   delete item.ranking;
-	//   return item;
-	// });
 	return data;
 };
 
@@ -181,6 +162,10 @@ const fnSuccess = (data) => {
 };
 
 const deleteRow = (row) => {
+	let result = confirm("Are you sure you want to delete this city?");
+	if (!result) {
+		return;
+	}
 	deleteCity(row?.id || 0);
 }
 

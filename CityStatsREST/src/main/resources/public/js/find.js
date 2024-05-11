@@ -13,28 +13,8 @@ const fnRemoveUnwantedProperties = (data, arrayOfProperties) => {
 	return data;
 };
 
-const removeFromFavorites = () => {
-	let specialDataSet = document.getElementById("specialDataSet");
-	let cityId = specialDataSet.getAttribute("data-id");
-	let testObj = JSON.parse(localStorage.getItem(`_cityFavorites`));
-	if (testObj) {
-		delete testObj[cityId];
-		localStorage.setItem(`_cityFavorites`, JSON.stringify(testObj));
-	} else {
-		localStorage.setItem(`_cityFavorites`, JSON.stringify({}));
-	}
-}
-
 const addEventListeners = () => {
-	document.getElementById("unfavoritebutton").addEventListener("click", function(event) {
-		event.preventDefault();
-		removeFromFavorites();
-		setTimeout(() => {
-			queryDatabaseForResults();
-			showLocalStorageSavedFavorites();
-		}, 0);
-		hideModal();
-	});
+	console.log("...adding event listeners...");
 };
 
 const actionHandler = function() {
@@ -84,139 +64,82 @@ const showNoData = (selector) => {
 	document.getElementById(selector).innerHTML = "<h1>No data to display</h1>";
 }
 
-const fnSuccess = (data) => {
-
-	data = fnRemoveUnwantedProperties(data, ["zips", "ranking"]);
-
-	if (!data || data.length === 0) {
-		showNoData("table");
-		return;
-	}
-
-	tableUtility.clickHandler = function(event) {
-		event.preventDefault();
-		console.log(event.target.parentElement.firstChild.textContent);
-		let cityId = Number(event.target.parentElement.dataset.id);
+const fnError = (error) => {
+	setTimeout(() => {
 		showModal(
 			"<h1 id='specialDataSet' data-id='" +
-			cityId +
-			"'>City ID: " +
-			cityId +
+			0 +
+			"'>" +
+			error +
 			"</h1>"
 		);
-	};
-
-	let newTable = tableUtility.createTable(data, "id");
-	document.getElementById("table").innerHTML = "";
-	document.getElementById("table").appendChild(newTable);
-	document.getElementById("countOfRows").textContent = data.length + " items found";
-};
-
-const fnError = (error) => {
-	console.log(error);
-	if (!data || data.length === 0) {
-		showNoData("table");
-		return;
-	}
+	}, 0);
 };
 
 const queryDatabaseForResults = () => {
 
-	let locallyStoredFavorites = JSON.parse(localStorage.getItem(`_cityFavorites`));
+	let id = getParameterByName("id") || 0;
 
-	let stringList = "";
+	document.getElementById("id").value = id;
 
-	if (locallyStoredFavorites) {
-		stringList = Object.keys(locallyStoredFavorites).join(',');
+	let url = urlPrefix + `api/cities/${id}`;
+
+	if (id == 0 || id === "" || id == null || isNaN(id)) {
+		return;
 	}
-
-	let url = urlPrefix + `api/cities/favorites/${stringList}`;
-	
-	document.getElementById("idList").textContent = stringList;
 
 	fetch(url)
 		.then((response) => response.json())
 		.then((data) => {
-			fnSuccess(data);
+
+			if (data === "") {
+				fnError("No data found");
+				return;
+			}
+
+			let cityId = data.id;
+
+			if (!isNaN(cityId)) {
+
+				setTimeout(() => {
+					showModal(
+						"<h1 id='specialDataSet' data-id='" +
+						cityId +
+						"'>Found City ID: " +
+						cityId + " <br> " + data.city +
+						"</h1>"
+					);
+				}, 0);
+
+			}
+
 		})
 		.catch((error) => {
-			fnError(error);
+			fnError("No data found");
 		});
 
 };
 
-const populateFavoritesTable = (data) => {
-
-	if (!data || data.length === 0) {
-		showNoData("favoritesTable");
-		return;
-	}
-
-	data = fnRemoveUnwantedProperties(data, ["zips", "ranking"]);
-
-	tableUtility.clickHandler = function(event) {
-		event.preventDefault();
-		console.log(event.target.parentElement.firstChild.textContent);
-		let cityId = Number(event.target.parentElement.dataset.id);
-		showModal(
-			"<h1 id='specialDataSet' data-id='" +
-			cityId +
-			"'>City ID: " +
-			cityId +
-			"</h1>"
-		);
-	};
-
-	let newTable = tableUtility.createTable(data, "id");
-	document.getElementById("favoritesTable").innerHTML = "";
-	document.getElementById("favoritesTable").appendChild(newTable);
-	document.getElementById("countOfRowsFavorites").textContent = data.length + " items found";
-}
-
-const showLocalStorageSavedFavorites = () => {
-
-	console.log(`showLocalStorageSavedFavorites`);
-
-	let storedFavorites = JSON.parse(localStorage.getItem(`_cityFavorites`));
-
-	let favoritesArray = [];
-
-	if (storedFavorites) {
-
-		Object.keys(storedFavorites).map((key) => {
-			delete storedFavorites[key].lat;
-			delete storedFavorites[key].lng;
-			delete storedFavorites[key].density;
-			delete storedFavorites[key].county;
-			delete storedFavorites[key].population;
-			delete storedFavorites[key].timezone;
-			favoritesArray.push(storedFavorites[key]);
-		});
-		
-		favoritesArray.sort((a, b) => {
-			let aDate = new Date(a.favoritedOn);
-			let bDate = new Date(b.favoritedOn);
-			if (aDate < bDate) {
-				return 1;
-			}
-			if (aDate > bDate) {
-				return -1;
-			}
-			return 0;
-		});
-
-		populateFavoritesTable(favoritesArray);
-		
-	} else {
-		showNoData("favoritesTable");
-	}
-
-
-}
-
 addEventListeners();
 
+const generateRandomLinks = () => {
+
+	let randomLinksContainer = document.getElementById("randomLinksContainer");
+	randomLinksContainer.innerHTML = "";
+
+	for (let i = 0; i < 10; i++) {
+		let randomLink = document.createElement("a");
+		randomLink.classList.add("btn");
+		let randomId = Math.floor(Math.random() * 32100);
+		randomLink.href = `find.html?id=${randomId}`;
+		randomLink.innerHTML = `Random City ${i + 1} (${randomId})`;
+		randomLinksContainer.appendChild(randomLink);
+	}
+
+
+};
+
 setTimeout(() => {
+	generateRandomLinks();
 	queryDatabaseForResults();
-	showLocalStorageSavedFavorites();
 }, 0);

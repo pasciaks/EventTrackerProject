@@ -14,8 +14,7 @@ const fnRemoveUnwantedProperties = (data, arrayOfProperties) => {
 };
 
 const addEventListeners = () => {
-
-
+	console.log("...adding event listeners...");
 };
 
 const actionHandler = function() {
@@ -65,69 +64,82 @@ const showNoData = (selector) => {
 	document.getElementById(selector).innerHTML = "<h1>No data to display</h1>";
 }
 
-const fnSuccess = (data) => {
-
-	data = fnRemoveUnwantedProperties(data, ["zips", "ranking"]);
-
-	if (!data || data.length === 0) {
-		showNoData("table");
-		return;
-	}
-
-	tableUtility.clickHandler = function(event) {
-		event.preventDefault();
-		console.log(event.target.parentElement.firstChild.textContent);
-		let cityId = Number(event.target.parentElement.dataset.id);
+const fnError = (error) => {
+	setTimeout(() => {
 		showModal(
 			"<h1 id='specialDataSet' data-id='" +
-			cityId +
-			"'>City ID: " +
-			cityId +
+			0 +
+			"'>" +
+			error +
 			"</h1>"
 		);
-	};
-
-	let newTable = tableUtility.createTable(data, "id");
-	document.getElementById("table").innerHTML = "";
-	document.getElementById("table").appendChild(newTable);
-	document.getElementById("countOfRows").textContent = data.length + " items found";
-};
-
-const fnError = (error) => {
-	console.log(error);
-	if (!data || data.length === 0) {
-		showNoData("table");
-		return;
-	}
+	}, 0);
 };
 
 const queryDatabaseForResults = () => {
-	
-	let pageSize = prompt("What page size ?","2");
-	let pageNumber = prompt("What page number ?","1");
 
-	let url = urlPrefix + `api/citypages?pageSize=${pageSize}&pageNumber=${pageNumber}`;
-	
-	document.getElementById("pageSize").textContent = pageSize;
-	document.getElementById("pageNumber").textContent = pageNumber;
+	let id = getParameterByName("id") || 0;
+
+	document.getElementById("id").value = id;
+
+	let url = urlPrefix + `api/cities/${id}`;
+
+	if (id == 0 || id === "" || id == null || isNaN(id)) {
+		return;
+	}
 
 	fetch(url)
 		.then((response) => response.json())
 		.then((data) => {
-			
-			document.getElementById("preContainer").textContent = JSON.stringify(data, null, 2);
-			
-			data = data.content;
-			fnSuccess(data);
+
+			if (data === "") {
+				fnError("No data found");
+				return;
+			}
+
+			let cityId = data.id;
+
+			if (!isNaN(cityId)) {
+
+				setTimeout(() => {
+					showModal(
+						"<h1 id='specialDataSet' data-id='" +
+						cityId +
+						"'>Found City ID: " +
+						cityId + " " + data.city +
+						"</h1>"
+					);
+				}, 0);
+
+			}
+
 		})
 		.catch((error) => {
-			fnError(error);
+			fnError("No data found");
 		});
 
 };
 
 addEventListeners();
 
+const generateRandomLinks = () => {
+
+	let randomLinksContainer = document.getElementById("randomLinksContainer");
+	randomLinksContainer.innerHTML = "";
+
+	for (let i = 0; i < 10; i++) {
+		let randomLink = document.createElement("a");
+		randomLink.classList.add("btn");
+		let randomId = Math.floor(Math.random() * 32100);
+		randomLink.href = `population.html?id=${randomId}`;
+		randomLink.innerHTML = `Random City ${i + 1} (${randomId})`;
+		randomLinksContainer.appendChild(randomLink);
+	}
+
+
+};
+
 setTimeout(() => {
-	queryDatabaseForResults();
+	generateRandomLinks();
+	///queryDatabaseForResults();
 }, 0);

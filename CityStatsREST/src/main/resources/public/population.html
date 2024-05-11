@@ -50,7 +50,7 @@ td {
 			<div class="modal-dialog">
 				<div class="bg-info modal-content" id="myModalContent">
 					<div class="modal-header">
-						<h5 class="modal-title">Selected City</h5>
+						<h5 class="modal-title">Result</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
@@ -67,25 +67,27 @@ td {
 			</div>
 		</div>
 
-		<div class="container text-center m-5 text-center">
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br> <br> <br> <br>
 
-			<alert id="alert" class="text-center w-100 alert alert-info"
-				role="alert">Query of cities paging
-			(/api/citypages?pageSize={<span id="pageSize"></span>}&pageNumber={<span
-				id="pageNumber"></span>})</alert>
+		<div id="randomLinksContainer" class="text-center container"></div>
+
+
+
+		<div class="container text-center text-center">
+
+			<form method="GET" action="population.html">
+
+				<label for="id">Enter City Id: <input type="number"
+					class="form-control" id="id" name="id" placeholder=""></label>
+				<button type="submit" class="w-25 btn btn-primary">Find By
+					Id</button>
+
+			</form>
 
 		</div>
 
 
-		<div class="container">
-			<p>
-				<span><span id="countOfRows"></span></span>
-			</p>
-		</div>
-
-		<div id="table" class="container table-container"></div>
-		
-		<pre id="preContainer"></pre>
 
 		<!-- Bootstrap JS -->
 		<script

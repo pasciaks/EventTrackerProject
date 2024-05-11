@@ -245,14 +245,15 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8083/api/cities",
+					"raw": "localhost:8083/api/cities/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
 						"api",
-						"cities"
+						"cities",
+						"1"
 					]
 				}
 			},
@@ -685,7 +686,7 @@
 			]
 		},
 		{
-			"name": "GET Cities ( get one city )",
+			"name": "GET Cities ( favorites )",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -702,7 +703,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8083/api/cities/3",
+					"raw": "localhost:8083/api/cities/favorites/6,88,99999",
 					"host": [
 						"localhost"
 					],
@@ -710,7 +711,8 @@
 					"path": [
 						"api",
 						"cities",
-						"3"
+						"favorites",
+						"6,88,99999"
 					]
 				}
 			},
@@ -963,7 +965,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8083/api/cities/33444",
+					"raw": "localhost:8083/api/cities/31121",
 					"host": [
 						"localhost"
 					],
@@ -971,7 +973,7 @@
 					"path": [
 						"api",
 						"cities",
-						"33444"
+						"31121"
 					]
 				}
 			},
@@ -1173,6 +1175,122 @@
 			"response": []
 		},
 		{
+			"name": "GET Cities distance",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8083/api/cities/distance?lat=41.8375&lng=-87.6866&cityId=3",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"cities",
+						"distance"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "41.8375"
+						},
+						{
+							"key": "lng",
+							"value": "-87.6866"
+						},
+						{
+							"key": "cityId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET Cities distance",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8083/api/cities/distance?lat=41.8375&lng=-87.6866&cityId=4",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"cities",
+								"distance"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "41.8375"
+								},
+								{
+									"key": "lng",
+									"value": "-87.6866"
+								},
+								{
+									"key": "cityId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 May 2024 01:45:16 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "1188.1830083248751"
+				}
+			]
+		},
+		{
 			"name": "GET Cities distances",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -1190,7 +1308,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8083/api/cities/distances?lat=41.8375&lng=-87.6866&howFar=5",
+					"raw": "localhost:8083/api/cities/distances?lat=41.8375&lng=-87.6866&howFar=156",
 					"host": [
 						"localhost"
 					],
@@ -1211,12 +1329,82 @@
 						},
 						{
 							"key": "howFar",
-							"value": "5"
+							"value": "156"
 						}
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "GET Cities distances",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8083/api/cities/distances?lat=41.8375&lng=-87.6866&howFar=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"cities",
+								"distances"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "41.8375"
+								},
+								{
+									"key": "lng",
+									"value": "-87.6866"
+								},
+								{
+									"key": "howFar",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 May 2024 01:45:22 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    [\n        3,\n        \"Chicago\",\n        \"Illinois\",\n        0\n    ],\n    [\n        553,\n        \"Cicero\",\n        \"Illinois\",\n        3.773549902433798\n    ],\n    [\n        5280,\n        \"Stickney\",\n        \"Illinois\",\n        4.642186662410876\n    ]\n]"
+				}
+			]
 		}
 	]
 }
