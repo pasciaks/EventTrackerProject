@@ -115,7 +115,7 @@ A model (developed by Leonard Richardson) that breaks down the principal element
 - Creating a tableUtility and other object utilities provided a useful resource to help prevent duplicating code.
 - These utilities are customized to provide varying functionality, as shown below.
 
-```
+```javascript
 const tableUtility = {
   hiddenColumns: [],
   clickHandler: function (event) {
@@ -123,10 +123,16 @@ const tableUtility = {
     let cityId = Number(event.target.parentElement.getAttribute("data-id"));
     console.log("You clicked on a table row! The city ID is:" + cityId);
   },
-  createTable: function (dataArray, primaryIdColumnName = "id") {
+  createTable: function (
+    dataArray,
+    primaryIdColumnName = "id",
+    optionalHandlerElement
+  ) {
     let table = document.createElement("table");
     table.appendChild(this.createHead(dataArray));
-    table.appendChild(this.createBody(dataArray, primaryIdColumnName));
+    table.appendChild(
+      this.createBody(dataArray, primaryIdColumnName, optionalHandlerElement)
+    );
     return table;
   },
 
@@ -143,9 +149,13 @@ const tableUtility = {
     return tr;
   },
 
-  createRowWithTds: function (row, primaryIdColumnName) {
+  createRowWithTds: function (
+    row,
+    primaryIdColumnName,
+    optionalHandlerElement
+  ) {
     let tr = document.createElement("tr");
-    tr.addEventListener("click", this.clickHandler);
+    tr.setAttribute("id", "row-" + row[primaryIdColumnName]);
     let title = ""; // hidden columns will be added to the title attribute
     for (prop in row) {
       let td = document.createElement("td");
@@ -158,6 +168,18 @@ const tableUtility = {
       tr.setAttribute("title", title); // hidden columns will be added to the title attribute
       tr.appendChild(td);
     }
+    if (optionalHandlerElement != null) {
+      let td = document.createElement("td");
+      let button = document.createElement("button");
+      button.setAttribute("data-id", row[primaryIdColumnName]);
+      button.setAttribute("data-action", "delete");
+      button.classList.add("btn", "btn-danger");
+      button.textContent = "Delete";
+      button.addEventListener("click", optionalHandlerElement.bind(this, row));
+      td.appendChild(button);
+      tr.appendChild(td);
+    }
+    tr.addEventListener("click", this.clickHandler);
     return tr;
   },
 
@@ -167,16 +189,23 @@ const tableUtility = {
     return thead;
   },
 
-  createBody: function (dataArray, primaryIdColumnName) {
+  createBody: function (
+    dataArray,
+    primaryIdColumnName,
+    optionalHandlerElement
+  ) {
     let tbody = document.createElement("tbody");
     for (let i = 0; i < dataArray.length; i++) {
-      let newRow = this.createRowWithTds(dataArray[i], primaryIdColumnName);
+      let newRow = this.createRowWithTds(
+        dataArray[i],
+        primaryIdColumnName,
+        optionalHandlerElement
+      );
       tbody.appendChild(newRow);
     }
     return tbody;
   },
 };
-
 ```
 
 ### API Endpoint tests/sample screenshots.
