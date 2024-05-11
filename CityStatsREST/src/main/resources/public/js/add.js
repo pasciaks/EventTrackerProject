@@ -1,64 +1,59 @@
+let onCityFormSubmit = function (event) {
+  event.preventDefault();
 
-let onCityFormSubmit = function(event) {
+  let form = document.getElementById("cityForm");
 
-	event.preventDefault();
+  let city = {
+    city: form.city.value,
+    state: form.state.value,
+    county: form.county.value,
+    lat: form.lat.value,
+    lng: form.lng.value,
+    population: form.population.value,
+    density: form.density.value,
+    timezone: form.timezone.value,
+    ranking: form.ranking.value,
+    zips: form.zips.value,
+  };
 
-	let form = document.getElementById("cityForm");
+  postCity(city);
 
-	let city = {
-		city: form.city.value,
-		state: form.state.value,
-		county: form.county.value,
-		lat: form.lat.value,
-		lng: form.lng.value,
-		population: form.population.value,
-		density: form.density.value,
-		timezone: form.timezone.value,
-		ranking: form.ranking.value,
-		zips: form.zips.value
-	};
-
-	postCity(city);
-
-	return true;
-
-}
+  return true;
+};
 
 const postCity = (city) => {
+  let xhr = new XMLHttpRequest();
 
-	let xhr = new XMLHttpRequest();
+  xhr.open("POST", "api/cities", true);
 
-	xhr.open("POST", "api/cities", true);
+  xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body
 
-	xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status == 200 || xhr.status == 201) {
+        let data = JSON.parse(xhr.responseText);
+        document.getElementById("cityForm").reset();
+        window.location.href =
+          "detail.html?id=" + data.id + "&message=City added successfully.";
+      } else {
+        console.error("POST request failed.");
+        console.error(xhr.status + ": " + xhr.responseText);
+        alert(
+          "Please validate your submission details, an error has occurred\n\n" +
+            xhr.status +
+            ": " +
+            xhr.responseText
+        );
+      }
+    }
+  };
 
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4) {
-			if (xhr.status == 200 || xhr.status == 201) {
-				let data = JSON.parse(xhr.responseText);
-				console.log(data);
-				alert("City with id " + data.id + " added.");
-				document.getElementById("cityForm").reset();
-				window.location.href = "detail.html?id=" + data.id;
-			} else {
-				console.error("POST request failed.");
-				let errorResult = JSON.parse(xhr.responseText);
-				alert(errorResult?.errorMessage || "Unknown error");
-				console.error(xhr.status + ": " + xhr.responseText);
-			}
-		}
-	};
+  let cityObjectJSON = JSON.stringify(city); // Convert JS object to JSON string
 
-	let cityObjectJSON = JSON.stringify(city); // Convert JS object to JSON string
+  console.log(cityObjectJSON);
 
-	console.log(cityObjectJSON);
-
-	xhr.send(cityObjectJSON);
-
-}
-
-
-
+  xhr.send(cityObjectJSON);
+};
 
 /*
 
@@ -88,16 +83,12 @@ times your hourly rate somewhere on the page.)
 
 */
 
-
-window.addEventListener("load", function() {
-
-	configureEventListeners();
-
+window.addEventListener("load", function () {
+  configureEventListeners();
 });
 
 const configureEventListeners = () => {
-
-	document.getElementById("cityForm").addEventListener("submit", onCityFormSubmit);
-
-}
-
+  document
+    .getElementById("cityForm")
+    .addEventListener("submit", onCityFormSubmit);
+};

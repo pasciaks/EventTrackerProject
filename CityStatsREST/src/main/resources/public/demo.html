@@ -4,17 +4,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Find</title>
-	<!-- Bootstrap CSS -->
+	<title>Demo</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<script defer src="js/root.js" type="text/javascript"></script>
 	<script defer src="js/cityUtility.js" type="text/javascript"></script>
 	<script defer src="js/tableUtility.js" type="text/javascript"></script>
-	<script defer src="js/find.js" type="text/javascript"></script>
+	<script defer src="js/demo.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<style>
 		.table-container {
-			font-family: 'Courier New', Courier, monospace;
+			font-family: 'Courier New', Courier, monospace !important;
 		}
 
 		td {
@@ -44,9 +43,9 @@
 		<!-- Modal -->
 		<div class="modal" id="myModal" tabindex="-1">
 			<div class="modal-dialog">
-				<div class="bg-info modal-content" id="myModalContent">
+				<div class="modal-content" id="myModalContent">
 					<div class="modal-header">
-						<h5 class="modal-title">Can you guess the State?</h5>
+						<h5 class="modal-title">Demo</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body" id="myModalBody">
@@ -61,38 +60,17 @@
 			</div>
 		</div>
 
-		<br> <br> <br> <br> <br> <br> <br>
+		<hr>
 
-
-		<div class="container text-center text-center">
-			<h1>Find a City By ID - Or use the NAV Bar for more options!</h1>
+		<div class="container text-center">
+			<p>This will demonstrate use of my created cityUtility.js that encapsulates REST endpoint services in
+				Javascript.</p>
+			<button id="demonstrateSuccess" class="btn btn-success">Demonstrate Success</button>
+			<button id="demonstrateFailure" class="btn btn-danger">Demonstrate Failure</button>
 		</div>
-
-		<br> <br> <br> <br> <br> <br> <br>
-
-		<div id="randomLinksContainer" class="text-center container"></div>
 
 		<hr>
 
-
-
-		<div class="container text-center text-center">
-
-			<form method="GET" action="find.html">
-
-				<label for="id">Enter City Id: <input type="number" min="1" class="form-control" id="id" name="id"
-						placeholder=""></label>
-				<button type="submit" class="w-25 btn btn-primary">Find By
-					Id</button>
-
-
-			</form>
-
-		</div>
-
-
-
-		<!-- Bootstrap JS -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

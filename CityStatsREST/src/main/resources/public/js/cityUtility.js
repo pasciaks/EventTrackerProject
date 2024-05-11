@@ -1,26 +1,42 @@
 const cityUtility = {
-  loadCities: function (callback) {
+  loadCities: function (success, failure) {
     let url = urlPrefix + `api/cities`;
-    console.log("cityUtility loadCities...");
-    console.log(url);
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        callback(data);
-        return data;
+      .then((response) => {
+        if (!response.ok) {
+          if (!response.ok) {
+            throw new Error("Request failed with status " + response.status);
+          }
+        } else {
+          return response.json();
+        }
       })
-      .catch((error) => console.error("Error fetching cities:", error));
+      .then((data) => {
+        return success(data);
+      })
+      .catch((error) => {
+        console.log("Caught Error:", error.message);
+        failure(error);
+      });
   },
-  loadCity: function (id, callback) {
+  loadCity: function (id, success, failure) {
     let url = urlPrefix + `api/cities/${id}`;
-    console.log("cityUtility loadCity...");
-    console.log(url);
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        callback(data);
-        return data;
+      .then((response) => {
+        if (!response.ok) {
+          if (!response.ok) {
+            throw new Error("Request failed with status " + response.status);
+          }
+        } else {
+          return response.json();
+        }
       })
-      .catch((error) => console.error("Error fetching city:", error));
+      .then((data) => {
+        return success(data);
+      })
+      .catch((error) => {
+        console.log("Caught Error:", error.message);
+        failure(error);
+      });
   },
 };
