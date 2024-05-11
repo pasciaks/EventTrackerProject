@@ -326,8 +326,6 @@ const setUp = () => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-
           let cities = [];
 
           data.forEach((item) => {
@@ -337,12 +335,10 @@ const setUp = () => {
               state: item[2],
               distance: item[3],
             };
-            console.log(city);
             cities.push(city);
           });
 
           fnSuccess(cities);
-          console.log(cities);
           return cities;
         })
         .catch((error) => {
@@ -408,6 +404,46 @@ const fnSuccess = (data) => {
   document.getElementById("table").innerHTML = "";
   document.getElementById("table").appendChild(newTable);
   document.getElementById("countOfRows").textContent = data.length;
+
+  let stateNamesInOrder = [];
+
+  for (let i = 0; i < data.length; i++) {
+    let row = data[i];
+    console.log(row);
+    let wasFound = false;
+
+    for (let ii = 0; ii < stateNamesInOrder.length; ii++) {
+      let item = stateNamesInOrder[ii];
+      if (item.state == row.state) {
+        wasFound = true;
+      }
+    }
+
+    if (!wasFound) {
+      stateNamesInOrder.push({
+        state: row.state,
+        distance: row.distance,
+        city: row.city,
+      });
+    }
+  }
+
+  console.log(stateNamesInOrder);
+
+  tableUtility.clickHandler = function (event) {
+    event.preventDefault();
+    alert(event?.target?.parentElement?.firstChild?.textContent || "Cities!");
+  };
+  let newTableNearestStates = tableUtility.createTable(
+    stateNamesInOrder,
+    "state"
+  );
+
+  document.getElementById("tableNearestStateCities").innerHTML =
+    "<h1>Nearest Cities by State</h1>";
+  document
+    .getElementById("tableNearestStateCities")
+    .appendChild(newTableNearestStates);
 };
 
 const fnError = (error) => {
