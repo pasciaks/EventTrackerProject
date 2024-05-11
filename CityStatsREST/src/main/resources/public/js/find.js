@@ -107,8 +107,23 @@ const queryDatabaseForResults = () => {
 						cityId +
 						"'>Found City ID: " +
 						cityId + " <br> " + data.city +
-						"</h1>"
+						"</h1><h2 class='text-dark' id='stateNameTrivia'></h2>"
 					);
+
+					setTimeout(() => {
+						let stateClue = data.state;
+						for (let i = 0; i < stateClue.length; i++) {
+							if (Math.random() > 0.25) {
+								stateClue = stateClue.replace(stateClue.charAt(i), "-");
+							}
+						}
+
+						document.getElementById("stateNameTrivia").innerText = stateClue;//data.state.charAt(0).toUpperCase() + ".".repeat(data.state.length - 1);
+					}, 4000);
+
+					setTimeout(() => {
+						document.getElementById("stateNameTrivia").innerText = data.state;
+					}, 7000);
 				}, 0);
 
 			}

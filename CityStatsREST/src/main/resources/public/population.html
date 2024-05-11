@@ -14,15 +14,36 @@
 <script defer src="js/tableUtility.js" type="text/javascript"></script>
 <script defer src="js/population.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
+
 <style>
 .table-container {
-	font-family: 'Courier New', Courier, monospace;
+	font-family: 'Courier New', Courier, monospace !important;
+}
+
+td,th {
+	font-family: 'Courier New', Courier, monospace !important;
 }
 
 td {
 	padding: 5px;
 	margin: 5px;
 	border: 1px solid grey;
+	text-align: left;
+}
+
+td:nth-child(2) {
+	text-align: right;
+	font-size: 1.2em;
+}
+
+td:nth-child(3) {
+	text-align: right;
+	font-size: 1.2em;
+}
+
+td:nth-child(4) {
+	text-align: right;
+	font-size: 1.2em;
 }
 </style>
 </head>
@@ -67,27 +88,30 @@ td {
 			</div>
 		</div>
 
-		<br> <br> <br> <br> <br> <br> <br>
-		<br> <br> <br> <br> <br> <br> <br>
 
-		<div id="randomLinksContainer" class="text-center container"></div>
+		<div class="container text-center text-center">
+			<p id="countof">api/cities/countof</p>
+			<p id="sumpop">api/cities/sumpop</p>
+			<p id="avgpop">api/cities/avgpop</p>
+		</div>
 
-
+		<div id="table" class="container text-center text-center"></div>
 
 		<div class="container text-center text-center">
 
-			<form method="GET" action="population.html">
-
-				<label for="id">Enter City Id: <input type="number"
-					class="form-control" id="id" name="id" placeholder=""></label>
-				<button type="submit" class="w-25 btn btn-primary">Find By
-					Id</button>
-
-			</form>
+			<div class="row">
+				<div class="col">
+					<pre id="sumpop"></pre>
+				</div>
+				<div class="col">
+					<pre id="avgpop"></pre>
+				</div>
+				<div class="col">
+					<pre id="countof"></pre>
+				</div>
+			</div>
 
 		</div>
-
-
 
 		<!-- Bootstrap JS -->
 		<script
@@ -96,8 +120,6 @@ td {
 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script
 			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
 	</main>
 
 </body>
