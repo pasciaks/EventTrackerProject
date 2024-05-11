@@ -310,15 +310,8 @@
   let myCanvas = document.getElementById("myCanvas");
 
   myCanvas.addEventListener("mousemove", function (event) {
-    //console.log(event.offsetX, event.offsetY);
-
-    // todo: translate these x,y to lat,lng
-
     let guessLat = 90 - event.offsetY / (myCanvas.height / 180);
     let guessLng = event.offsetX / (myCanvas.width / 360) - 180;
-
-    //console.log("Guess Lat: " + guessLat);
-    //console.log("Guess Lng: " + guessLng);
   });
 
   let ctx = myCanvas.getContext("2d");
@@ -403,8 +396,6 @@
       let latv = Number(temp["lat"]);
       let longv = Number(temp["long"]);
 
-      // console.log(latv, longv);
-
       drawPoints(latv, longv, "gold", 2);
     }
   };
@@ -427,8 +418,7 @@
         cityList.textContent = "";
         data.forEach((city) => {
           const ahref = document.createElement("a");
-          //ahref.href = `api/cities/${city.id}`;
-          //ahref.href = `add-edit.html?id=${city.id}`;
+
           ahref.href = `detail.html?id=${city.id}`;
 
           ahref.textContent = "[" + city.city + "]";
@@ -476,8 +466,6 @@
     loadStates();
 
     let citiesLoader = new Promise((resolve, reject) => {
-      // loadCities();
-
       loadCitiesWithCoordinates();
 
       setTimeout(() => {
@@ -493,9 +481,12 @@
 
     citiesLoader.then((message) => {
       if (message === "Success") {
-        //let randomState = Math.floor(Math.random() * statesList.length);
-        //console.log("Random State: " + statesList[randomState]);
-        //loadCitiesForState(statesList[randomState]);
+        let randomState = Math.floor(Math.random() * statesList.length);
+        console.log("Random State: " + statesList[randomState]);
+        loadCitiesForState(statesList[randomState]);
+        setTimeout(() => {
+          alert("Random State: " + statesList[randomState]);
+        }, 5000);
       }
     });
   });
