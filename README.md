@@ -71,11 +71,11 @@ This application includes an 'creative commons' dataset of over 31k Cities which
 
 # Additional Stretch Goal Endpoints
 
-- localhost:8083/api/cities/favorites/6,88,99999
+api/cities/favorites/6,88,234,532
 
 # Pageable
 
-- Note: In preparation for the coming Javascript implementation, with particular concerns for my 31k of rows, I've implemented Pageable to help limit the query size returns in order to efficiently handle the request traffic as well as provide user convenience for large data sets. The front end shall include ability to page through data and efficiently retrieve city rows without the need to return the 5 MB + size of all row data.
+- Note: With particular concerns for my 31k of rows, I've implemented Pageable to help limit the query size returns in order to efficiently handle the request traffic as well as provide user convenience for large data sets. The front end shall include ability to page through data and efficiently retrieve city rows without the need to return the 5 MB + size of all row data.
 
 ![Pageable Endpoint](pageable.png)
 
@@ -204,6 +204,60 @@ const tableUtility = {
       tbody.appendChild(newRow);
     }
     return tbody;
+  },
+};
+```
+
+### Additional code considerations
+
+- As demonstrated briefly in the 'Demo' link of this app, the use of AJAX requests is the main lesson learned here.
+- In addition to a few instances where window on load event listeners are added to achieve the load and then subsequent Javascript actions, the use of the defer script tag is used to alleviate the need for the on load event.
+- The Demo portion of code demonstrates the clever use of external javascript files and object structure to provide 'utility' and 'service' type functions. These can be see in the tableUtility.js and the cityUtility.js files.
+- Although not fully implemented due to the amount of code already present, the below example cityUtility.js would be a good option for best practice is separation of concerns and code reuse.
+
+### Example code for cityUtility.js that serves as a data layer/service object.
+
+```javascript
+const cityUtility = {
+  loadCities: function (success, failure) {
+    let url = urlPrefix + `api/cities`;
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          if (!response.ok) {
+            throw new Error("Request failed with status " + response.status);
+          }
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        return success(data);
+      })
+      .catch((error) => {
+        console.log("Caught Error:", error.message);
+        failure(error);
+      });
+  },
+  loadCity: function (id, success, failure) {
+    let url = urlPrefix + `api/cities/${id}`;
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          if (!response.ok) {
+            throw new Error("Request failed with status " + response.status);
+          }
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        return success(data);
+      })
+      .catch((error) => {
+        console.log("Caught Error:", error.message);
+        failure(error);
+      });
   },
 };
 ```
