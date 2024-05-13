@@ -212,7 +212,7 @@ const tableUtility = {
 
 - As demonstrated briefly in the 'Demo' link of this app, the use of AJAX requests is the main lesson learned here.
 - In addition to a few instances where window on load event listeners are added to achieve the load and then subsequent Javascript actions, the use of the defer script tag is used to alleviate the need for the on load event.
-- The Demo portion of code demonstrates the clever use of external javascript files and object structure to provide 'utility' and 'service' type functions. These can be see in the tableUtility.js and the cityUtility.js files.
+- The Demo portion of code demonstrates the clever use of external javascript files and object structure to provide 'utility' and 'service' type functions. These can be seen in the tableUtility.js and the cityUtility.js files.
 - Although not fully implemented due to the amount of code already present, the below example cityUtility.js would be a good option for best practice is separation of concerns and code reuse.
 
 ### Example code for cityUtility.js that serves as a data layer/service object.
@@ -261,6 +261,8 @@ const cityUtility = {
   },
 };
 ```
+
+### NOTE: Because the live site is hosted on AWS, to limit costs, the site will likely be offline most of the time. Therefore the following large collection of screenshots is provided to demonstrate functionality.
 
 ### API Endpoint tests/sample screenshots.
 
