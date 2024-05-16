@@ -10,6 +10,13 @@ This project will use a MySQL database to practice the concepts of a well formed
 
 This application includes an 'creative commons' dataset of over 31k Cities which are used with the API to demonstrate the REST API methods and data gathering.
 
+### How to access the site
+
+- The following URLs are ways you can access this project at the hosted AWS Site.
+- http://3.15.197.159
+- http://3.15.197.159:8080
+- http://3.15.197.159:8080/CityStatsREST/
+
 ### Learning Objectives
 
 - Create a JPA Project
