@@ -1,8 +1,90 @@
-<div class="container bg-info">
+<td><button class="btn btn-warning" (click)="this.add()">Add</button></td>
+
+<br />
+
+<hr />
+
+<div class="container" *ngIf="this.selected !== null">
     <div class="row">
         <div class="col">
-            <p>Cities: {{cities.length}}</p>
-            <app-tabs></app-tabs>
+            <h1>City Selected</h1>
+            <div>
+                <p>id: {{ selected.id }}</p>
+                <p>city: {{ selected.city }}</p>
+                <p>state: {{ selected.state }}</p>
+                <p>county: {{ selected.county }}</p>
+                <p>lat: {{ selected.lat }}</p>
+                <p>lng: {{ selected.lng }}</p>
+                <p>population: {{ selected.population }}</p>
+                <p>density: {{ selected.density }}</p>
+                <p>timezone: {{ selected.timezone }}</p>
+                <p>ranking: {{ selected.ranking }}</p>
+                <!-- <p>zips: {{selected.zips}}</p> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="this.editing !== null">
+    <div class="row">
+        <div class="col">
+            <h1>Edit</h1>
+            {{ this.editing.id }}
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="this.adding !== null">
+    <div class="row">
+        <div class="col">
+            <h1>Add</h1>
+            {{ this.adding.id }}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p id="tableMessage">Cities: {{ cities.length }}</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>city</th>
+                        <th>state</th>
+                        <th>county</th>
+                        <th>Select</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let city of cities">
+                        <tr>
+                            <td>{{ city.id }}</td>
+                            <td>{{ city.city }}</td>
+                            <td>{{ city.state }}</td>
+                            <td>{{ city.county }}</td>
+                            <td>
+                                <button class="btn btn-warning" (click)="this.select(city)">
+                                    Select
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning" (click)="this.edit(city)">
+                                    Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" (click)="this.delete(city)">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -32,4 +32,54 @@ export class CityService {
       })
     );
   }
+
+  show(id: number): Observable<City> {
+    return this.http.get<City>(this.url + '/' + id).pipe(
+      catchError((err: any) => {
+        alert(JSON.stringify(err));
+        return throwError(
+          () =>
+            new Error('PokemonService.show(): error retrieving pokemon: ' + err)
+        );
+      })
+    );
+  }
+
+  create(city: City): Observable<City> {
+    return this.http.post<City>(this.url, city).pipe(
+      catchError((err: any) => {
+        alert(JSON.stringify(err));
+        return throwError(
+          () =>
+            new Error('PokemonService.create(): error creating pokemon: ' + err)
+        );
+      })
+    );
+  }
+
+  update(city: City): Observable<City> {
+    return this.http.put<City>(this.url + '/' + city.id, city).pipe(
+      catchError((err: any) => {
+        alert(JSON.stringify(err));
+        return throwError(
+          () =>
+            new Error('PokemonService.update(): error updating pokemon: ' + err)
+        );
+      })
+    );
+  }
+
+  destroy(city: City): Observable<City> {
+    return this.http.delete<City>(this.url + '/' + city.id).pipe(
+      catchError((err: any) => {
+        alert(JSON.stringify(err));
+        return throwError(
+          () =>
+            new Error(
+              'PokemonService.destroy(): error deleting pokemon: ' + err
+            )
+        );
+      })
+    );
+  }
 }
