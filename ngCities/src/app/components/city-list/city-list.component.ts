@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CityService } from '../../services/city.service';
 import { City } from '../../models/city';
+import { TabsComponent } from '../tabs/tabs.component';
 @Component({
   selector: 'app-city-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TabsComponent],
   templateUrl: './city-list.component.html',
   styleUrl: './city-list.component.css',
 })

@@ -1,0 +1,98 @@
+<ul ngbNav #nav="ngbNav" [activeId]="2" class="nav-tabs justify-content-center">
+    <li [ngbNavItem]="1">
+        <button ngbNavLink>Simple</button>
+        <ng-template ngbNavContent>
+            <p>
+                Grading
+                This is a graded project. You are expected to have your project completed by noon on Monday.
+
+                You will be given either a pass or fail based on whether your code works given all of the following test
+                conditions:
+
+                A new event object implements full CRUD.
+                All interactions with the database are done so RESTfully.
+                App uses angular to access data and manipulate the DOM.
+                App presents the aggregated data in some additional format.
+                If the project does work with all of the above test conditions, you will be given a 1 for this week's
+                project.
+
+                If the project does not work with the above test conditions, you will be given a 0 for this week's
+                project.
+
+                If you get a zero on the project, you can upgrade to a score of .5 if you turn in a working project by
+                the start of class the following Monday morning AND notify an instructor that you wish to get partial
+                credit.
+
+                To turn in a project, you must push it to GitHub. You must also deploy it to your AWS server. You must
+                include a README.md that describes your program and how to access it on AWS. </p>
+        </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+        <button ngbNavLink><b>Fancy</b> title</button>
+        <ng-template ngbNavContent>
+            <p>
+                Grading
+                This is a graded project. You are expected to have your project completed by noon on Monday.
+
+                You will be given either a pass or fail based on whether your code works given all of the following test
+                conditions:
+
+                A new event object implements full CRUD.
+                All interactions with the database are done so RESTfully.
+                App uses angular to access data and manipulate the DOM.
+                App presents the aggregated data in some additional format.
+                If the project does work with all of the above test conditions, you will be given a 1 for this week's
+                project.
+
+                If the project does not work with the above test conditions, you will be given a 0 for this week's
+                project.
+
+                If you get a zero on the project, you can upgrade to a score of .5 if you turn in a working project by
+                the start of class the following Monday morning AND notify an instructor that you wish to get partial
+                credit.
+
+                To turn in a project, you must push it to GitHub. You must also deploy it to your AWS server. You must
+                include a README.md that describes your program and how to access it on AWS. </p>
+        </ng-template>
+    </li>
+    <li ngbDropdown class="nav-item" role="presentation">
+        <button type="button" class="nav-link" ngbDropdownToggle>Dropdown</button>
+        <div ngbDropdownMenu>
+            <button ngbDropdownItem>Action</button>
+            <button ngbDropdownItem>Another action</button>
+            <button ngbDropdownItem>Something else here</button>
+            <div class="dropdown-divider"></div>
+            <button ngbDropdownItem>Separated link</button>
+        </div>
+    </li>
+    <li ngbNavItem [disabled]="true" class="ms-auto">
+        <button ngbNavLink>Disabled</button>
+        <ng-template ngbNavContent>
+            <p>
+                Grading
+                This is a graded project. You are expected to have your project completed by noon on Monday.
+
+                You will be given either a pass or fail based on whether your code works given all of the following test
+                conditions:
+
+                A new event object implements full CRUD.
+                All interactions with the database are done so RESTfully.
+                App uses angular to access data and manipulate the DOM.
+                App presents the aggregated data in some additional format.
+                If the project does work with all of the above test conditions, you will be given a 1 for this week's
+                project.
+
+                If the project does not work with the above test conditions, you will be given a 0 for this week's
+                project.
+
+                If you get a zero on the project, you can upgrade to a score of .5 if you turn in a working project by
+                the start of class the following Monday morning AND notify an instructor that you wish to get partial
+                credit.
+
+                To turn in a project, you must push it to GitHub. You must also deploy it to your AWS server. You must
+                include a README.md that describes your program and how to access it on AWS. </p>
+        </ng-template>
+    </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
