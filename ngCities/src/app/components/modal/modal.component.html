@@ -1,11 +1,36 @@
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <h4 class="modal-title" id="modal-basic-title">Add/Edit</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <form>
+        <form *ngIf="childData!= null">
+            {{ childData | json }}
+
+
+            <!-- id: number = 0,
+            city: string = '',
+            state: string = '',
+            county: string = '',
+            lat: number = 0,
+            lng: number = 0,
+            population: number = 0,
+            density: number = 0,
+            timezone: string = '',
+            ranking: number = 0,
+            zips: string = '' -->
+
             <div class="mb-3">
+                <label for="id">Id</label>
+                <input disabled type="text" class="form-control" id="id" name="id" [(ngModel)]="childData.id">
+            </div>
+
+            <div class="mb-3">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" name="city" [(ngModel)]="childData.city">
+            </div>
+
+            <!-- <div class="mb-3">
                 <label for="dateOfBirth">Date of birth</label>
                 <div class="input-group">
                     <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
@@ -13,16 +38,24 @@
                     <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()"
                         type="button"></button>
                 </div>
-            </div>
+            </div> -->
+            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="sendData();modal.close('Submit click')"
+                type="button">Submit</button>
+            <button class="btn btn-outline-secondary bi bi-calendar3"
+                (click)="cancel('Cancel');modal.close('Cancel click')" type="button">Cancel</button>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button> -->
     </div>
 </ng-template>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<div class="row">
+    <div class="col">
+        <button *ngIf="childData!=null" class="btn btn-lg btn-outline-primary" (click)="open(content)">Open</button>
+    </div>
+</div>
 
-<hr />
+<!-- <hr /> -->
 
-<pre>{{ closeResult }}</pre>
+<!-- <pre>{{ closeResult }}</pre> -->

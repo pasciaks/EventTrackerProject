@@ -1,6 +1,13 @@
-<td><button class="btn btn-warning" (click)="this.add()">Add</button></td>
-
 <br />
+
+<div class="row">
+    <div class="col text-center">
+        <app-modal *ngIf="this.adding!=null" [childData]="this.adding" (cancelEvent)="cancelEvent('Adding Cancel')"
+            (childEvent)="childEvent(this.adding)"></app-modal>
+        <app-modal *ngIf="this.editing!=null" [childData]="this.editing" (cancelEvent)="cancelEvent('Editing Cancel')"
+            (childEvent)="childEvent(this.editing)"></app-modal>
+    </div>
+</div>
 
 <hr />
 
@@ -23,6 +30,7 @@
             </div>
         </div>
     </div>
+    <button class="btn btn-warning" (click)="this.cancelSelect()">Cancel</button>
 </div>
 
 <div class="container" *ngIf="this.editing !== null">
@@ -38,15 +46,15 @@
     <div class="row">
         <div class="col">
             <h1>Add</h1>
-            {{ this.adding.id }}
+            {{ this.adding | json}}
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="this.selected==null && this.editing==null && this.adding==null">
     <div class="row">
         <div class="col">
-            <p id="tableMessage">Cities: {{ cities.length }}</p>
+            <button class="btn btn-warning" (click)="this.add()">Add</button>
             <table class="table table-striped">
                 <thead>
                     <tr>

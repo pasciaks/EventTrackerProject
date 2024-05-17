@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CityService } from '../../services/city.service';
 import { City } from '../../models/city';
 import { TabsComponent } from '../tabs/tabs.component';
+import { ModalComponent } from '../modal/modal.component';
 @Component({
   selector: 'app-city-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, TabsComponent],
+  imports: [CommonModule, FormsModule, TabsComponent, ModalComponent],
   templateUrl: './city-list.component.html',
   styleUrl: './city-list.component.css',
 })
@@ -27,10 +28,44 @@ export class CityListComponent implements OnInit {
     this.reload();
   }
 
+  childEvent(city: City | null) {
+    console.log('Child Event HERE in city-list.component.ts');
+    console.log(city);
+
+    if (city === null) {
+      alert('An error occurred. Please try again.');
+      return;
+    }
+
+    if (city.id > 0) {
+      this.update(city); // call update service method and subscribe to results
+    } else {
+      this.create(city); // call create service method and subscribe to results
+    }
+  }
+
+  cancelEvent(message: string | null) {
+    console.log('Cancel Event HERE in city-list.component.ts');
+    console.log(message);
+    if (message === 'Editing Cancel') {
+      // special behavior for editing cancel
+    }
+    if (message === 'Adding Cancel') {
+      // special behavior for adding cancel
+    }
+    this.editing = null;
+    this.adding = null;
+  }
+
   select(city: City) {
     console.log('Select');
     console.log(city);
     this.selected = city;
+  }
+
+  cancelSelect() {
+    console.log('Cancel Select');
+    this.selected = null;
   }
 
   // button click to add a new city
@@ -44,7 +79,8 @@ export class CityListComponent implements OnInit {
   edit(city: City) {
     console.log('Edit/Update');
     console.log(city);
-    this.editing = city;
+    this.editing = Object.assign({}, city);
+    console.log(this.editing);
   }
 
   // DELETE - button click to delete a city
@@ -106,6 +142,7 @@ export class CityListComponent implements OnInit {
       next: (city: City) => {
         this.editing = null;
         this.loadCity(city.id);
+        this.cancelEvent('create Success cancel');
       },
       error: (err: Error) => console.error('Observer got an error: ' + err),
     });
@@ -116,6 +153,7 @@ export class CityListComponent implements OnInit {
       next: (city: City) => {
         this.editing = null;
         this.loadCity(city.id);
+        this.cancelEvent('update Success cancel');
       },
       error: (err: Error) => console.error('Observer got an error: ' + err),
     });
@@ -123,16 +161,19 @@ export class CityListComponent implements OnInit {
 
   destroy(city: City) {
     this.cityService.destroy(city).subscribe({
-      next: (city: City) => {
+      next: () => {
         this.selected = null;
-        this.loadCity(city.id);
+        this.adding = null;
+        this.editing = null;
+        this.cancelEvent('destroy Success cancel');
+        this.reload();
       },
       error: (err: Error) => console.error('Observer got an error: ' + err),
     });
   }
 
   reload() {
-    // this.loadCities();
-    this.loadCity(1);
+    this.loadCities();
+    // this.loadCity(1);
   }
 }

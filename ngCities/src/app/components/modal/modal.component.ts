@@ -1,21 +1,47 @@
-import { Component, inject, TemplateRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
+import { Input, Output } from '@angular/core';
 
 import {
   ModalDismissReasons,
   NgbDatepickerModule,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
+import { City } from '../../models/city';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [NgbDatepickerModule],
+  imports: [NgbDatepickerModule, CommonModule, FormsModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css',
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
   private modalService = inject(NgbModal);
+  @Input() childData: City | null = null;
+  @Output() childEvent = new EventEmitter<City | null>();
+  @Output() cancelEvent = new EventEmitter<string | null>();
   closeResult = '';
+
+  sendData() {
+    const dataToSend = 'Data from child component';
+    this.childEvent.emit(this.childData);
+  }
+
+  cancel(message: string | null) {
+    this.cancelEvent.emit('Cancel from child component' + message);
+  }
+
+  ngOnInit(): void {
+    console.log('Modal Component');
+  }
 
   open(content: TemplateRef<any>) {
     this.modalService
@@ -26,6 +52,7 @@ export class ModalComponent {
         },
         (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.cancelEvent.emit('Cancel from child component' + reason);
         }
       );
   }
