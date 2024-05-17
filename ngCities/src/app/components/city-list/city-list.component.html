@@ -31,13 +31,16 @@
         </div>
     </div>
     <button class="btn btn-warning" (click)="this.cancelSelect()">Cancel</button>
+    <button class="btn btn-info" (click)="this.editSelect()">Edit</button>
 </div>
 
 <div class="container" *ngIf="this.editing !== null">
     <div class="row">
         <div class="col">
             <h1>Edit</h1>
-            {{ this.editing.id }}
+            <h3><strong>Note:</strong> Although a Form could be placed here, effort has been made to implement a modal
+                view that uses
+                'Input', 'Output', and 'Event Emitters' facilitate the functionality.</h3>
         </div>
     </div>
 </div>
@@ -46,7 +49,9 @@
     <div class="row">
         <div class="col">
             <h1>Add</h1>
-            {{ this.adding | json}}
+            <h3><strong>Note:</strong> Although a Form could be placed here, effort has been made to implement a modal
+                view that uses
+                'Input', 'Output', and 'Event Emitters' facilitate the functionality.</h3>
         </div>
     </div>
 </div>
@@ -63,7 +68,6 @@
                         <th>state</th>
                         <th>county</th>
                         <th>Select</th>
-                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -77,11 +81,6 @@
                             <td>
                                 <button class="btn btn-warning" (click)="this.select(city)">
                                     Select
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-warning" (click)="this.edit(city)">
-                                    Edit
                                 </button>
                             </td>
                             <td>

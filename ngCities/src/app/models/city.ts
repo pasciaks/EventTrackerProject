@@ -10,6 +10,7 @@ export class City {
   timezone: string = '';
   ranking: number = 0;
   zips: string = '';
+  isValid: boolean = false;
   // task: string = '';
   // description: string = '';
   // completed: boolean = false;
@@ -25,7 +26,8 @@ export class City {
     density: number = 0,
     timezone: string = '',
     ranking: number = 0,
-    zips: string = ''
+    zips: string = '',
+    isValid: boolean = false
     // task: string = '',
     // description: string = '',
     // completed: boolean = false
@@ -44,5 +46,6 @@ export class City {
     this.timezone = timezone;
     this.ranking = ranking;
     this.zips = zips;
+    this.isValid = isValid;
   }
 }

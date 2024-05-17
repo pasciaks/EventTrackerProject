@@ -5,8 +5,8 @@
     </div>
     <div class="modal-body">
         <form *ngIf="childData!= null">
-            {{ childData | json }}
 
+            <!-- {{ childData | json }} -->
 
             <!-- id: number = 0,
             city: string = '',
@@ -20,14 +20,144 @@
             ranking: number = 0,
             zips: string = '' -->
 
-            <div class="mb-3">
-                <label for="id">Id</label>
-                <input disabled type="text" class="form-control" id="id" name="id" [(ngModel)]="childData.id">
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="id">Id</label>
+                    </div>
+                    <div class="col">
+                        <input disabled type="text" class="form-control" id="id" name="id" [(ngModel)]="childData.id">
+                        <p class="text-danger" *ngIf="childData.id === 0">Id must be greater than 0</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="city">City</label>
-                <input type="text" class="form-control" id="city" name="city" [(ngModel)]="childData.city">
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="city">City</label>
+                    </div>
+                    <div class="col">
+                        <input required type="text" class="form-control" id="city" name="city"
+                            [(ngModel)]="childData.city">
+                        <p class="text-danger" *ngIf="childData.city === ''">City must not be empty</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="state">State</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="state" name="state" [(ngModel)]="childData.state">
+                        <p class="text-danger" *ngIf="childData.state === ''">State must not be empty</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="county">County</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="county" name="county"
+                            [(ngModel)]="childData.county">
+                        <p class="text-danger" *ngIf="childData.county === ''">County must not be empty</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="lat">Latitude</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="lat" name="lat" [(ngModel)]="childData.lat">
+                        <p class="text-danger" *ngIf="childData.lat === 0">Latitude must not be 0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="lng">Longitude</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="lng" name="lng" [(ngModel)]="childData.lng">
+                        <p class="text-danger" *ngIf="childData.lng === 0">Longitude must not be 0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="population">Population</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="population" name="population"
+                            [(ngModel)]="childData.population">
+                        <p class="text-danger" *ngIf="childData.population === 0">Population must not be 0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+
+                        <label for="density">Density</label>
+                    </div>
+                    <div class="col">
+
+                        <input type="text" class="form-control" id="density" name="density"
+                            [(ngModel)]="childData.density">
+                        <p class="text-danger" *ngIf="childData.density === 0">Density must not be 0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="timezone">Timezone</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="timezone" name="timezone"
+                            [(ngModel)]="childData.timezone">
+                        <p class="text-danger" *ngIf="childData.timezone === ''">Timezone must not be empty</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="ranking">Ranking</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="ranking" name="ranking"
+                            [(ngModel)]="childData.ranking">
+                        <p class="text-danger" *ngIf="childData.ranking === 0">Ranking must not be 0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-1">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="zips">Zips</label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="zips" name="zips" [(ngModel)]="childData.zips">
+                        <p class="text-danger" *ngIf="childData.zips === ''">Zips must not be empty</p>
+                    </div>
+                </div>
             </div>
 
             <!-- <div class="mb-3">
@@ -39,9 +169,11 @@
                         type="button"></button>
                 </div>
             </div> -->
-            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="sendData();modal.close('Submit click')"
-                type="button">Submit</button>
-            <button class="btn btn-outline-secondary bi bi-calendar3"
+
+            <button *ngIf="validateInput(childData) === true" class="btn btn-outline-success bi bi-calendar3 mx-2"
+                (click)="sendData();modal.close('Saved/Updated')" type="button">Submit</button>
+
+            <button class="btn btn-outline-warning bi bi-calendar3 mx-2"
                 (click)="cancel('Cancel');modal.close('Cancel click')" type="button">Cancel</button>
         </form>
     </div>
@@ -52,7 +184,8 @@
 
 <div class="row">
     <div class="col">
-        <button *ngIf="childData!=null" class="btn btn-lg btn-outline-primary" (click)="open(content)">Open</button>
+        <button *ngIf="childData!=null" class="btn btn-lg btn-outline-primary" (click)="open(content)">Open Modal
+            Form</button>
     </div>
 </div>
 

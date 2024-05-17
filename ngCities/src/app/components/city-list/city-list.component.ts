@@ -60,11 +60,22 @@ export class CityListComponent implements OnInit {
   select(city: City) {
     console.log('Select');
     console.log(city);
-    this.selected = city;
+    this.loadCity(city.id);
+    // this.selected = city;
   }
 
   cancelSelect() {
     console.log('Cancel Select');
+    this.selected = null;
+  }
+
+  editSelect() {
+    console.log('Cancel Select');
+    if (this.select === null) {
+      alert("Can't edit a city that is not selected.");
+      return;
+    }
+    this.editing = Object.assign({}, this.selected);
     this.selected = null;
   }
 
@@ -79,15 +90,19 @@ export class CityListComponent implements OnInit {
   edit(city: City) {
     console.log('Edit/Update');
     console.log(city);
-    this.editing = Object.assign({}, city);
-    console.log(this.editing);
+    this.loadCity(city.id);
+    //this.editing = Object.assign({}, city);
   }
 
   // DELETE - button click to delete a city
   delete(city: City) {
-    console.log('Delete');
-    console.log(city);
-    this.destroy(city);
+    if (
+      confirm('Are you sure you want to delete ' + city?.city + '?') === true
+    ) {
+      console.log('Delete');
+      console.log(city);
+      this.destroy(city);
+    }
   }
 
   // SAVE/UPDATE - EDIT FORM button click to save the updated city

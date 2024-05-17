@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ModalComponent implements OnInit {
   private modalService = inject(NgbModal);
+
   @Input() childData: City | null = null;
   @Output() childEvent = new EventEmitter<City | null>();
   @Output() cancelEvent = new EventEmitter<string | null>();
@@ -33,10 +34,60 @@ export class ModalComponent implements OnInit {
   sendData() {
     const dataToSend = 'Data from child component';
     this.childEvent.emit(this.childData);
+    this.childData = null;
   }
 
   cancel(message: string | null) {
     this.cancelEvent.emit('Cancel from child component' + message);
+  }
+
+  validateInput(city: City): boolean {
+    console.log('Validate Input');
+    console.log(city);
+
+    // optimize and DRY'ify this...
+    if (city.city === '') {
+      console.log("City can't be empty.");
+      return false;
+    }
+    if (city.state === '') {
+      console.log("State can't be empty.");
+      return false;
+    }
+    if (city.county === '') {
+      console.log("County can't be empty.");
+      return false;
+    }
+    if (isNaN(city.lat)) {
+      console.log("Latitude can't be empty.");
+      return false;
+    }
+    if (isNaN(city.lng)) {
+      alert("Longitude can't be empty.");
+      return false;
+    }
+    if (isNaN(city.population)) {
+      console.log("Population can't be empty.");
+      return false;
+    }
+    if (isNaN(city.density)) {
+      console.log("Density can't be empty.");
+      return false;
+    }
+    if (city.timezone === '') {
+      console.log("Timezone can't be empty.");
+      return false;
+    }
+    if (isNaN(city.ranking)) {
+      console.log("Ranking can't be empty.");
+      return false;
+    }
+    if (city.zips === '') {
+      console.log("Zip codes can't be empty.");
+      return false;
+    }
+
+    return true;
   }
 
   ngOnInit(): void {
@@ -45,7 +96,7 @@ export class ModalComponent implements OnInit {
 
   open(content: TemplateRef<any>) {
     this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' })
       .result.then(
         (result) => {
           this.closeResult = `Closed with: ${result}`;
