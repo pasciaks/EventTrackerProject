@@ -4,6 +4,7 @@ import { CityListComponent } from './components/city-list/city-list.component';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     AccordionComponent,
     ModalComponent,
     PaginationComponent,
+    HeaderComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
