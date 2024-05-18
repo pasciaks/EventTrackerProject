@@ -16,11 +16,18 @@ repositories {
 	mavenCentral()
 }
 
-war {
+//war {
   // Gradle will replace the variable archivesBaseName
   // with our app name, as defined in settings.gradle
+  //archiveFileName = "${archivesBaseName}.war"
+  //destinationDirectory = file("../")     // Project workspace directory
+//}
+
+apply plugin: 'war'
+war {
+  enabled = true
   archiveFileName = "${archivesBaseName}.war"
-  destinationDirectory = file("../")     // Project workspace directory
+  destinationDirectory = file("../")          // Project workspace directory
 }
 
 dependencies {

@@ -2,15 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { City } from '../models/city';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CityService {
-  private baseUrl = 'http://localhost:8083/'; // adjust port to match server
+  private baseUrl = environment.baseUrl; //'http://localhost:8083/'; // adjust port to match server
   private url = this.baseUrl + 'api/cities'; // change 'todos' to your API path
 
   constructor(private http: HttpClient) {}
+
+  // ng serve -o --port=4201 --configuration=development
+
+  // ng build --base-href=/CityStatsREST/
+  // ng build --base-href=/CityStatsREST/ --prod
+  // cp -rp dist/ng-cities/browser/* ~/SD/Java/EventTracker/CityStatsREST/src/main/resources/static/
 
   //   Next Steps
   // Do a commit of what you've done so far.
