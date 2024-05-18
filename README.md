@@ -1,8 +1,19 @@
 # EventTrackerProject - Sheldon Pasciak, Skill Distillery
 
-## May the 4th-18th be with you, 2024!
+- May the 4th-18th be with you, 2024!
 
 # Updates! Angular Front end has been added!
+
+- How to access all this hard work!
+
+Bootstrap
+http://3.15.197.159:8080/CityStatsREST/find.html
+
+Angular
+http://3.15.197.159:8080/CityStatsREST/#/
+
+<hr>
+<hr>
 
 #### Features
 
@@ -15,6 +26,7 @@
 - URL activatedRoute.paramMap for detail view
 - Modal Component using Input and Output
 - Detail view wtih Input of selected city
+- ngTable ( Basic and Sortable )
 
 ![Angular Demo](a1.png)
 ![Angular Demo](a2.png)
