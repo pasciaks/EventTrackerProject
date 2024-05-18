@@ -1,0 +1,29 @@
+<p>You can introduce custom directives for table headers to sort columns</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" sortable="id" (sort)="onSort($event)" style="cursor:pointer;border:1px solid green;">#</th>
+            <th scope="col" sortable="city" (sort)="onSort($event)" style="cursor:pointer;border:1px solid green;">City
+            </th>
+            <th scope="col" style="cursor:pointer;border:1px solid red;">State</th>
+            <th scope="col" sortable="county" (sort)="onSort($event)" style="cursor:pointer;border:1px solid green;">
+                County</th>
+            <th scope="col" sortable="population" (sort)="onSort($event)"
+                style="cursor:pointer;border:1px solid green;">Population</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (city of cities; track city.id;let i = $index ) {
+        <tr>
+            <th scope="row">({{i}}) {{ city.id }}</th>
+            <td>
+                {{ city.city }}
+            </td>
+            <td>{{ city.state }}</td>
+            <td>{{ city.county }}</td>
+            <td>{{ city.population | number }}</td>
+        </tr>
+        }
+    </tbody>
+</table>

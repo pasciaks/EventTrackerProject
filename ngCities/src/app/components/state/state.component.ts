@@ -4,11 +4,18 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CityService } from '../../services/city.service';
 import { City } from '../../models/city';
+import { TableBasicComponent } from '../table-basic/table-basic.component';
+import { SortedTableComponent } from '../sorted-table/sorted-table.component';
 
 @Component({
   selector: 'app-state',
   standalone: true,
-  imports: [MapLinkPipe, CommonModule],
+  imports: [
+    MapLinkPipe,
+    CommonModule,
+    TableBasicComponent,
+    SortedTableComponent,
+  ],
   templateUrl: './state.component.html',
   styleUrl: './state.component.css',
 })

@@ -1,0 +1,48 @@
+<p>Table is just a mapping of objects to table rows with <code>&#64;for</code></p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">County</th>
+            <th scope="col">Latitude</th>
+            <th scope="col">Longitude</th>
+            <th scope="col">Timezone</th>
+            <th scope="col">Ranking</th>
+            <th scope="col">Population</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (city of cities; track cities; let i = $index) {
+        <tr>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+                {{ city.city }}
+            </td>
+            <td>
+                {{ city.state }}
+            </td>
+            <td>
+                {{ city.county }}
+            </td>
+            <td>
+                {{ city.lat }}
+            </td>
+            <td>
+                {{ city.lng }}
+            </td>
+            <td>
+                {{ city.timezone }}
+            </td>
+            <td>
+                {{ city.ranking | number }}
+            </td>
+            <td>
+                {{ city.population | number }}
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
