@@ -1,5 +1,6 @@
-<p>Table is just a mapping of objects to table rows with <code>&#64;for</code></p>
-
+<form>
+    <input type="text" name="find" [(ngModel)]="this.find" placeholder="Search city" class="form-control bg-info">
+</form>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -15,34 +16,39 @@
         </tr>
     </thead>
     <tbody>
-        @for (city of cities; track cities; let i = $index) {
-        <tr>
-            <th scope="row">{{ i + 1 }}</th>
-            <td>
-                {{ city.city }}
-            </td>
-            <td>
-                {{ city.state }}
-            </td>
-            <td>
-                {{ city.county }}
-            </td>
-            <td>
-                {{ city.lat }}
-            </td>
-            <td>
-                {{ city.lng }}
-            </td>
-            <td>
-                {{ city.timezone }}
-            </td>
-            <td>
-                {{ city.ranking | number }}
-            </td>
-            <td>
-                {{ city.population | number }}
-            </td>
-        </tr>
+        @for (city of cities; track city.id; let i = $index) {
+        <ng-container *ngIf="city.city.toLowerCase().indexOf(this.find.toLowerCase())>-1">
+
+            <tr>
+                <th scope="row">{{ i + 1 }} &nbsp;(id:<a href="#/city/{{ city.id }}" target="_blank">{{ city.id }}</a>)
+                </th>
+                <td>
+                    {{ city.city }}
+                </td>
+                <td>
+                    {{ city.state }}
+                </td>
+                <td>
+                    {{ city.county }}
+                </td>
+                <td>
+                    {{ city.lat }}
+                </td>
+                <td>
+                    {{ city.lng }}
+                </td>
+                <td>
+                    {{ city.timezone }}
+                </td>
+                <td>
+                    {{ city.ranking | number }}
+                </td>
+                <td>
+                    {{ city.population | number }}
+                </td>
+            </tr>
+
+        </ng-container>
         }
     </tbody>
 </table>

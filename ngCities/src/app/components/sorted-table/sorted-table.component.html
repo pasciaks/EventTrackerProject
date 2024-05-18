@@ -1,5 +1,3 @@
-<p>You can introduce custom directives for table headers to sort columns</p>
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -16,7 +14,8 @@
     <tbody>
         @for (city of cities; track city.id;let i = $index ) {
         <tr>
-            <th scope="row">({{i}}) {{ city.id }}</th>
+            <th scope="row">{{ i + 1 }} &nbsp;(id:<a href="#/city/{{ city.id }}" target="_blank">{{ city.id }}</a>)
+            </th>
             <td>
                 {{ city.city }}
             </td>

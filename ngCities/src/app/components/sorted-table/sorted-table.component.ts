@@ -131,7 +131,7 @@ export class SortedTableComponent implements OnInit {
     } else {
       console.log('Sorting');
 
-      this.cities = this.cities.reverse();
+      //this.cities = this.cities.reverse().reverse();
 
       let newCities: City[] = [];
 
