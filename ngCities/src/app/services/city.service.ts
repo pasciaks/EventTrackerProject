@@ -33,6 +33,21 @@ export class CityService {
     );
   }
 
+  // localhost:8083/api/cities/states/New Hampshire
+  citiesInState(stateName: string): Observable<City[]> {
+    return this.http.get<City[]>(this.url + '/states/' + stateName).pipe(
+      catchError((err: any) => {
+        alert(JSON.stringify(err));
+        return throwError(
+          () =>
+            new Error(
+              'PokemonService.index(): error retrieving pokemon: ' + err
+            )
+        );
+      })
+    );
+  }
+
   show(id: number): Observable<City> {
     return this.http.get<City>(this.url + '/' + id).pipe(
       catchError((err: any) => {

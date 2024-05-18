@@ -1,0 +1,44 @@
+<div *ngIf="selected!==null">
+    <div class="row">
+        <div class="col text-center">
+            (ID:{{selected.city}})<h1>{{ selected.city }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p><span class="title">State: </span>{{ selected.state }}</p>
+        </div>
+        <div class="col">
+            <p><span class="title">County: </span>{{ selected.county }}</p>
+        </div>
+        <div class="col">
+            <p><span class="title">Latitude: </span>{{ selected.lat }}</p>
+        </div>
+        <div class="col">
+            <p><span class="title">Longitude: </span>{{ selected.lng }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p><span class="title">Population: </span>{{ selected.population }}</p>
+        </div>
+        <div class="col">
+            <p><span class="title">Density: </span>{{ selected.density }}</p>
+        </div>
+        <div class="col">
+            <p><span class="title">Timezone: </span>{{ selected.timezone }}</p>
+        </div>
+        <div class="col">
+            <p><span class="title">Ranking: </span>{{ selected.ranking }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p><span class="title">Zip Codes: </span>{{selected.zips}}</p>
+        </div>
+    </div>
+    <p><span class="title">Map Link: </span>
+        <a href="{{selected | mapLink:'12'}}" target="_blank"><span class="link-large">🗺</span></a>
+        <span><a href="{{selected | mapLink:'12'}}" target="_blank">{{selected | mapLink:'12'}}</a></span>
+    </p>
+</div>

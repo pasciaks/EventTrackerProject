@@ -1,0 +1,16 @@
+.title {
+
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin: 5px 0px;
+    color: blue;
+}
+
+.link-large {
+    font-size: 32px;
+    color: darkslategray;
+    border: 1px solid darkslategray;
+    border-radius: 8px;
+    box-shadow: 0 0 5px darkslategray;
+    margin: 5px 10px;
+}

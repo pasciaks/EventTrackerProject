@@ -1,0 +1,51 @@
+<h3><strong><em>Aggregated Data</em></strong> - Cities In Selected State</h3>
+<hr>
+<div *ngIf="!isLoaded">
+    <div class="alert alert-info" role="alert">
+        Loading...
+    </div>
+</div>
+
+<p>TODO: Consider implementing ng bootstrap table component</p>
+
+
+
+<div *ngIf="cities!==null">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>County</th>
+                        <th>Population</th>
+                        <th>Timezone</th>
+                        <th>Map</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let city of  cities">
+                        <tr>
+                            <td><a href="#/city/{{ city.id }}" target="_blank">{{ city.id }}</a></td>
+                            <td>{{ city.city }}</td>
+                            <td>{{ city.state }}</td>
+                            <td>{{ city.county }}</td>
+                            <td>{{ city.population }}</td>
+                            <td>{{ city.timezone }}</td>
+                            <td><a href="{{city | mapLink:'12'}}" target="_blank"><span class="link">🗺</span></a></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- NOTE: isLoaded to prevent error from showing before load, lifecycle tricks -->
+<div *ngIf="isLoaded && (cities===null || cities.length <= 0)">
+    <div class="alert alert-danger" role="alert">
+        No cities found for the selected state.
+    </div>
+</div>

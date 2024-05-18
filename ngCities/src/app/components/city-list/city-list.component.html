@@ -1,5 +1,5 @@
-<br />
-
+<h3>Cities Search</h3>
+<hr>
 <div class="row">
     <div class="col text-center">
         <app-modal *ngIf="this.adding!=null" [childData]="this.adding" (cancelEvent)="cancelEvent('Adding Cancel')"
@@ -9,24 +9,11 @@
     </div>
 </div>
 
-<hr />
-
 <div class="container" *ngIf="this.selected !== null">
     <div class="row">
         <div class="col">
-            <h1>City Selected</h1>
-            <div>
-                <p>id: {{ selected.id }}</p>
-                <p>city: {{ selected.city }}</p>
-                <p>state: {{ selected.state }}</p>
-                <p>county: {{ selected.county }}</p>
-                <p>lat: {{ selected.lat }}</p>
-                <p>lng: {{ selected.lng }}</p>
-                <p>population: {{ selected.population }}</p>
-                <p>density: {{ selected.density }}</p>
-                <p>timezone: {{ selected.timezone }}</p>
-                <p>ranking: {{ selected.ranking }}</p>
-                <!-- <p>zips: {{selected.zips}}</p> -->
+            <div *ngIf="selected!==null">
+                <app-city-detail *ngIf="this.selected!=null" [selected]="this.selected"></app-city-detail>
             </div>
         </div>
     </div>
@@ -41,6 +28,7 @@
             <h3><strong>Note:</strong> Although a Form could be placed here, effort has been made to implement a modal
                 view that uses
                 'Input', 'Output', and 'Event Emitters' facilitate the functionality.</h3>
+            <button class="btn btn-warning mx-2" (click)="this.cancelEdit()">Cancel</button>
         </div>
     </div>
 </div>
@@ -52,32 +40,48 @@
             <h3><strong>Note:</strong> Although a Form could be placed here, effort has been made to implement a modal
                 view that uses
                 'Input', 'Output', and 'Event Emitters' facilitate the functionality.</h3>
+            <button class="btn btn-warning mx-2" (click)="this.cancelAdd()">Cancel</button>
         </div>
     </div>
 </div>
 
-<div class="container" *ngIf="this.selected==null && this.editing==null && this.adding==null">
+<div class="table-container" *ngIf="this.selected==null && this.editing==null && this.adding==null">
     <div class="row">
         <div class="col">
-            <button class="btn btn-warning" (click)="this.add()">Add</button>
+
+            <span>Search:&nbsp; <input type="text" name="searchCityTemp" [(ngModel)]="this.searchCityTemp"
+                    placeholder="Search City"></span><button *ngIf="checkSearchSize()===true"
+                (click)="this.searchCity=this.searchCityTemp" class="btn btn-info mx-2">Search</button><span>&nbsp;
+                Note: Must
+                enter 3 or more characters to search.</span>
+            <button class="btn btn-warning mx-2" (click)="this.add()">Add</button>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>city</th>
-                        <th>state</th>
-                        <th>county</th>
+                        <th>Id</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>County</th>
+                        <th>Map</th>
                         <th>Select</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let city of cities">
+                    <ng-container *ngFor="let city of  cities | filterCities:this.searchCity ">
                         <tr>
-                            <td>{{ city.id }}</td>
+                            <td><a href="#/city/{{ city.id }}" target="_blank">{{ city.id }}</a></td>
                             <td>{{ city.city }}</td>
-                            <td>{{ city.state }}</td>
+                            <td><a href="#/state/{{ city.state }}" target="_blank">{{ city.state }}</a></td>
                             <td>{{ city.county }}</td>
+                            <td>
+                                <span class="text-small badge">
+                                    <a href="{{ city | mapLink:'8'}}" target="_blank">🗺</a>
+                                </span>
+                                <span class="text-large badge">
+                                    <a href="{{ city | mapLink:'12'}}" target="_blank">🗺</a>
+                                </span>
+                            </td>
                             <td>
                                 <button class="btn btn-warning" (click)="this.select(city)">
                                     Select

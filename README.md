@@ -1,10 +1,29 @@
-# EventTrackerProject - Sheldon Pasciak, Skill Distillery, May the 4th be with you, 2024!
+# EventTrackerProject - Sheldon Pasciak, Skill Distillery
 
-![Dataset Credits](0.png)
+## May the 4th-18th be with you, 2024!
+
+# Updates! Angular Front end has been added!
+
+#### Features
+
+- REST API, CRUD Operations
+- MySQL Database
+- Spring Boot
+- Angular
+- HTML, CSS, Bootstrap
+- Custom Pipe to generate map links
+- URL activatedRoute.paramMap for detail view
+- Modal Component using Input and Output
+- Detail view wtih Input of selected city
+
+![Angular Demo](a1.png)
+![Angular Demo](a2.png)
 
 ### Overview
 
 'Event Tracker' is a broad term for anything that keeps track of information over time.
+
+![Dataset Credits](0.png)
 
 This project will use a MySQL database to practice the concepts of a well formed REST API. Included will be the prinicpal route handlers common for API Development.
 

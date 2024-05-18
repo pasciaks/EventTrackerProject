@@ -5,10 +5,21 @@ import { CityService } from '../../services/city.service';
 import { City } from '../../models/city';
 import { TabsComponent } from '../tabs/tabs.component';
 import { ModalComponent } from '../modal/modal.component';
+import { MapLinkPipe } from '../../pipes/map-link.pipe';
+import { FilterCitiesPipe } from '../../pipes/filter-cities.pipe';
+import { CityDetailComponent } from '../city-detail/city-detail.component';
 @Component({
   selector: 'app-city-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, TabsComponent, ModalComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TabsComponent,
+    ModalComponent,
+    MapLinkPipe,
+    FilterCitiesPipe,
+    CityDetailComponent,
+  ],
   templateUrl: './city-list.component.html',
   styleUrl: './city-list.component.css',
 })
@@ -20,6 +31,21 @@ export class CityListComponent implements OnInit {
   editing: City | null = null;
 
   adding: City | null = null;
+
+  searchCity: string = 'Chicago';
+
+  searchCityTemp: string = 'Chicago';
+
+  checkSearchSize(): boolean {
+    let str = this.searchCityTemp;
+    if (str === null) {
+      return false;
+    }
+    if (str.length >= 3) {
+      return true;
+    }
+    return false;
+  }
 
   constructor(private cityService: CityService) {
     console.log('Constructor');
@@ -67,6 +93,19 @@ export class CityListComponent implements OnInit {
   cancelSelect() {
     console.log('Cancel Select');
     this.selected = null;
+    this.reload();
+  }
+
+  cancelEdit() {
+    console.log('Cancel Add');
+    this.editing = null;
+    this.reload();
+  }
+
+  cancelAdd() {
+    console.log('Cancel Add');
+    this.adding = null;
+    this.reload();
   }
 
   editSelect() {

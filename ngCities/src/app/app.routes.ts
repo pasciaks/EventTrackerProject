@@ -3,11 +3,15 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { CityComponent } from './components/city/city.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { StateComponent } from './components/state/state.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: WelcomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'home/:cityId', component: HomeComponent },
+  { path: 'city/:id', component: CityComponent },
+  { path: 'state/:name', component: StateComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: '**', component: NotFoundComponent },

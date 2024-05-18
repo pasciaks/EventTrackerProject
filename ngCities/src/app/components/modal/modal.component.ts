@@ -30,6 +30,7 @@ export class ModalComponent implements OnInit {
   @Output() childEvent = new EventEmitter<City | null>();
   @Output() cancelEvent = new EventEmitter<string | null>();
   closeResult = '';
+  errors: string[] = [];
 
   sendData() {
     const dataToSend = 'Data from child component';
@@ -45,45 +46,57 @@ export class ModalComponent implements OnInit {
     console.log('Validate Input');
     console.log(city);
 
+    this.errors = [];
+
     // optimize and DRY'ify this...
     if (city.city === '') {
       console.log("City can't be empty.");
+      this.errors.push("City can't be empty.");
       return false;
     }
     if (city.state === '') {
       console.log("State can't be empty.");
+      this.errors.push("State can't be empty.");
       return false;
     }
     if (city.county === '') {
       console.log("County can't be empty.");
+      this.errors.push("County can't be empty.");
       return false;
     }
     if (isNaN(city.lat)) {
       console.log("Latitude can't be empty.");
+      this.errors.push("Latitude can't be empty.");
       return false;
     }
     if (isNaN(city.lng)) {
       alert("Longitude can't be empty.");
+      this.errors.push("Longitude can't be empty.");
       return false;
     }
     if (isNaN(city.population)) {
       console.log("Population can't be empty.");
+      this.errors.push("Population can't be empty.");
       return false;
     }
     if (isNaN(city.density)) {
       console.log("Density can't be empty.");
+      this.errors.push("Density can't be empty.");
       return false;
     }
     if (city.timezone === '') {
       console.log("Timezone can't be empty.");
+      this.errors.push("Timezone can't be empty.");
       return false;
     }
     if (isNaN(city.ranking)) {
       console.log("Ranking can't be empty.");
+      this.errors.push("Ranking can't be empty.");
       return false;
     }
     if (city.zips === '') {
       console.log("Zip codes can't be empty.");
+      this.errors.push("Zip codes can't be empty.");
       return false;
     }
 
