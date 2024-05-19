@@ -1,12 +1,73 @@
-<p>Restricted size, no rotation:</p>
-<ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [boundaryLinks]="true" />
+<h1>City Pages</h1>
+<hr>
 
-<p>Restricted size with rotation:</p>
-<ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" />
+<div *ngIf="isLoaded===true">
 
-<p>Restricted size with rotation and no ellipses:</p>
-<ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
-    [boundaryLinks]="true" />
-<hr />
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <label for="selectedPage">Page</label>
+                <button class="btn btn-info mx-2" (click)="firstPage()">First</button>
+                <button class="btn btn-info mx-2" (click)="prevPage()"> (Prev) </button>
+                <select name="selectedPage" (change)="selectChanged()" [(ngModel)]="this.selectedPage">
+                    <option
+                        *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200]"
+                        [value]="i-1">{{i}}</option>
+                </select>
+                <button class="btn btn-info mx-2" (click)="nextPage()"> (Next) </button>
+            </div>
+            <div class="col">
+                <label for="selectedPageSize">Page Size</label>
+                <select name="selectedPageSize" (change)="selectChanged()" [(ngModel)]="this.selectedPageSize">
+                    <option
+                        *ngFor="let i of [1,2,3,4,5,10,20,30,40,50,60,70,80,90,100,200,300,400,500,1000,2000,3000,4000,5000]"
+                        [value]="i">{{i}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <p>Records: {{this?.cities?.length}}</p>
+            </div>
+        </div>
+    </div>
 
-<pre>Current page: {{ page }}</pre>
+    <!-- for each city, show details a table row -->
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" sortable="id" style="cursor:pointer;border:1px solid green;">#
+                </th>
+                <th scope="col" sortable="city" style="cursor:pointer;border:1px solid green;">City
+                </th>
+                <th scope="col" style="cursor:pointer;border:1px solid red;">State</th>
+                <th scope="col" sortable="county" style="cursor:pointer;border:1px solid green;">
+                    County</th>
+                <th scope="col" sortable="maplink" style="cursor:pointer;border:1px solid green;">
+                    Map Link</th>
+                <th scope="col" sortable="population" style="cursor:pointer;border:1px solid green;">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let city of cities; let i = index">
+                <th scope="row"> &nbsp;(id:<a href="#/city/{{ city.id }}" target="_blank">{{ city.id }}</a>)
+                </th>
+                <td>
+                    {{ city.city }}
+                </td>
+                <td><a href="#/state/{{ city.state }}" target="_blank">{{ city.state }}</a></td>
+                <td>{{ city.county }}</td>
+                <td>
+                    <span class="text-small badge">
+                        <a href="{{ city | mapLink:'8'}}" target="_blank">🗺</a>
+                    </span>
+                    <span class="text-large badge">
+                        <a href="{{ city | mapLink:'12'}}" target="_blank">🗺</a>
+                    </span>
+                </td>
+                <td>{{ city.population | number }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>

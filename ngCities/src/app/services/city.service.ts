@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { City } from '../models/city';
 import { environment } from '../../environments/environment';
+import { Content } from '../models/content';
 
 @Injectable({
   providedIn: 'root',
@@ -31,13 +32,27 @@ export class CityService {
       catchError((err: any) => {
         alert(JSON.stringify(err));
         return throwError(
-          () =>
-            new Error(
-              'PokemonService.index(): error retrieving pokemon: ' + err
-            )
+          () => new Error('.index(): error retrieving cities: ' + err)
         );
       })
     );
+  }
+
+  //localhost:8083/api/citypages?pageSize=2&pageNumber=1
+  cityPages(pageSize: number, pageNumber: number): Observable<Content> {
+    return this.http
+      .get<Content>(
+        this.baseUrl +
+          `api/citypages?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(
+        catchError((err: any) => {
+          alert(JSON.stringify(err));
+          return throwError(
+            () => new Error('.cityPages(): error retrieving cityPages: ' + err)
+          );
+        })
+      );
   }
 
   // localhost:8083/api/cities/states/New Hampshire
@@ -47,9 +62,7 @@ export class CityService {
         alert(JSON.stringify(err));
         return throwError(
           () =>
-            new Error(
-              'PokemonService.index(): error retrieving pokemon: ' + err
-            )
+            new Error('citiesInState.index(): error retrieving cities: ' + err)
         );
       })
     );
@@ -60,8 +73,7 @@ export class CityService {
       catchError((err: any) => {
         alert(JSON.stringify(err));
         return throwError(
-          () =>
-            new Error('PokemonService.show(): error retrieving pokemon: ' + err)
+          () => new Error('.show(): error retrieving city: ' + err)
         );
       })
     );
@@ -72,8 +84,7 @@ export class CityService {
       catchError((err: any) => {
         alert(JSON.stringify(err));
         return throwError(
-          () =>
-            new Error('PokemonService.create(): error creating pokemon: ' + err)
+          () => new Error('.create(): error creating city: ' + err)
         );
       })
     );
@@ -84,8 +95,7 @@ export class CityService {
       catchError((err: any) => {
         alert(JSON.stringify(err));
         return throwError(
-          () =>
-            new Error('PokemonService.update(): error updating pokemon: ' + err)
+          () => new Error('.update(): error updating city: ' + err)
         );
       })
     );
@@ -96,10 +106,7 @@ export class CityService {
       catchError((err: any) => {
         alert(JSON.stringify(err));
         return throwError(
-          () =>
-            new Error(
-              'PokemonService.destroy(): error deleting pokemon: ' + err
-            )
+          () => new Error('.destroy(): error deleting city: ' + err)
         );
       })
     );

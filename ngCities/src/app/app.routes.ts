@@ -6,6 +6,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { CityComponent } from './components/city/city.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { StateComponent } from './components/state/state.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 export const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'state/:name', component: StateComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'pages', component: PaginationComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
